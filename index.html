@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEXX — Next-Gen Tech & Nexus Secure Checkout</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              accent: '#06b6d4',
+              neon: '#10b981'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbars & styles */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Shimmer effect for buttons */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0) 80%
+      );
+      transform: rotate(25deg);
+      animation: shimmerSweep 4s infinite ease-in-out;
+    }
+    @keyframes shimmerSweep {
+      0% { left: -60%; }
+      30%, 100% { left: 140%; }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <!-- ========================================================================= -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ========================================================================= -->
+  <!-- REAL CARD PROHIBITED MODAL POPUP -->
+  <!-- ========================================================================= -->
+  <div id="real-card-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border-2 border-rose-500/80 rounded-2xl p-6 sm:p-7 shadow-2xl shadow-rose-950/50 text-center transform scale-95 transition-all">
+      <div class="w-16 h-16 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 mx-auto flex items-center justify-center text-3xl mb-4 animate-bounce">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="text-xl font-display font-extrabold text-white mb-2">Real Cards Prohibited!</h3>
+      <p class="text-sm text-rose-200/90 leading-relaxed mb-4">
+        This is purely a prototype mockup. For your security, <strong class="text-white">real credit/debit card numbers are strictly forbidden</strong>.
+      </p>
+      <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 text-left mb-6 space-y-1.5 font-mono">
+        <div class="text-amber-400 font-sans font-semibold flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info"></i> Your card input was cleared automatically.
+        </div>
+        <div class="text-slate-400 pt-1 font-sans">Use any official simulated test card:</div>
+        <div class="text-brand-accent">Visa: 4111 1111 1111 1111</div>
+        <div class="text-indigo-400">Mastercard: 5555 5555 5555 4444</div>
+        <div class="text-amber-400">Amex: 3782 822463 10005</div>
+      </div>
+      <button id="btn-close-real-card-modal" class="w-full py-3 px-5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-rose-600/30 transition">
+        I Understand — Use Test Cards Only
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- SCREEN 1: WELCOME HERO LANDING -->
+  <!-- ========================================================================= -->
+  <section id="screen-welcome" class="relative min-h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden">
+    <!-- Ambient Lighting Glows -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-600/20 rounded-full blur-[128px] pointer-events-none"></div>
+    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-brand-accent/20 rounded-full blur-[128px] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-3xl w-full mx-auto text-center px-4 flex flex-col items-center justify-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-semibold tracking-wider uppercase mb-6 shadow-inner">
+        <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span>
+        Nexus Hardware Showcase
+      </div>
+
+      <!-- Main Logo / Brand -->
+      <h1 class="text-6xl sm:text-7xl md:text-8xl font-display font-extrabold tracking-tight text-white mb-6">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">TEXX</span>
+        <span class="text-brand-500">.</span>
+      </h1>
+
+      <p class="text-xl sm:text-2xl text-slate-300 font-medium max-w-xl mx-auto mb-4 leading-relaxed">
+        Next-Gen Tech & Gear Engineered for the Quantum Era.
+      </p>
+      <p class="text-sm sm:text-base text-slate-400 max-w-lg mx-auto mb-10">
+        Experience hyper-responsive neural peripherals, quantum optics, and ultra-high-density power devices with a seamless checkout simulation.
+      </p>
+
+      <!-- Centered Start Shopping Button -->
+      <div class="w-full flex items-center justify-center">
+        <button id="btn-start-shopping" class="btn-shimmer group flex items-center justify-center gap-3 px-10 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-700 hover:from-brand-500 hover:to-indigo-600 text-white font-semibold text-lg shadow-xl shadow-brand-600/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200">
+          <span>Start Shopping</span>
+          <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform"></i>
+        </button>
+      </div>
+
+      <!-- Feature preview badges -->
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-xl w-full mx-auto">
+        <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
+          <div class="text-xs text-slate-400">Hardware Catalog</div>
+          <div class="text-sm font-semibold text-slate-200 flex items-center gap-2 mt-1">
+            <i class="fa-solid fa-microchip text-brand-neon"></i> TEXX Original Gear
+          </div>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
+          <div class="text-xs text-slate-400">Verification</div>
+          <div class="text-sm font-semibold text-slate-200 flex items-center gap-2 mt-1">
+            <i class="fa-solid fa-shield-halved text-brand-accent"></i> Luhn Algorithm Check
+          </div>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
+          <div class="text-xs text-slate-400">Persistence</div>
+          <div class="text-sm font-semibold text-slate-200 flex items-center gap-2 mt-1">
+            <i class="fa-solid fa-database text-indigo-400"></i> Local Vault Save
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SCREEN 2: PRODUCT STORE / CATALOG -->
+  <!-- ========================================================================= -->
+  <section id="screen-store" class="hidden flex-col min-h-screen">
+    <!-- Store Header -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="goToStoreHome()">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center font-display font-extrabold text-white text-xl shadow-lg shadow-brand-500/25">
+            T
+          </div>
+          <div>
+            <span class="font-display font-bold text-2xl tracking-wider text-white">TEXX</span>
+            <span class="text-[10px] block tracking-widest uppercase text-brand-400 font-mono -mt-1">LABORATORIES</span>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="hidden md:flex items-center relative max-w-md w-full">
+          <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3.5 pointer-events-none text-xs"></i>
+          <input 
+            type="text" 
+            id="store-search-input" 
+            placeholder="Search high-tech gear (e.g. keyboard, watch, neural)..." 
+            class="w-full bg-slate-900/80 border border-slate-700/80 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 placeholder-slate-400 rounded-xl pl-10 pr-4 py-2 outline-none transition"
+          >
+        </div>
+
+        <!-- Cart Trigger -->
+        <div class="flex items-center gap-3">
+          <button id="btn-open-cart" class="relative p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 transition-all flex items-center gap-2 group">
+            <i class="fa-solid fa-cart-shopping text-sm group-hover:text-brand-400 transition-colors"></i>
+            <span class="hidden sm:inline text-xs font-semibold uppercase tracking-wider">Cart</span>
+            <span id="cart-badge-count" class="bg-brand-600 text-white font-bold text-xs px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-md">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Store Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none mb-6">
+        <button class="category-btn active px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-brand-600 text-white shadow-md shadow-brand-600/30 whitespace-nowrap" data-cat="all">All Products</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="audio">Neural Audio</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="peripherals">Input Interfaces</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="wearables">Smart Wearables</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="power">Power & Energy</button>
+      </div>
+
+      <!-- Store Sub-banner -->
+      <div class="mb-8 p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="text-brand-accent text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt"></i> Experimental Series 04
+          </div>
+          <h2 class="text-xl font-display font-bold text-white">Genuine TEXX Quantum-Grade Hardware</h2>
+          <p class="text-sm text-slate-400">Select futuristic gear, preview cart totals, and proceed to the Nexus Checkout demo.</p>
+        </div>
+        <div class="text-xs text-slate-400 font-mono bg-slate-950/70 border border-slate-800/80 px-4 py-2 rounded-xl flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand-neon"></span> 100% In Stock & Verified
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Products injected via JavaScript -->
+      </div>
+    </main>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL / SLIDE-OVER: CART DRAWER -->
+  <!-- ========================================================================= -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden transition-opacity duration-300">
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
+      <div class="w-screen max-w-md bg-slate-900 border-l border-slate-800 flex flex-col shadow-2xl">
+        <!-- Drawer Header -->
+        <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-brand-500/10 text-brand-400">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-lg text-white">Your Cart</h3>
+              <p class="text-xs text-slate-400" id="cart-item-count-text">0 items selected</p>
+            </div>
+          </div>
+          <button id="btn-close-cart" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Items Scroll Area -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Drawer Footer / Summary -->
+        <div class="p-6 border-t border-slate-800 bg-slate-950/60 space-y-4">
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between text-slate-400">
+              <span>Subtotal</span>
+              <span id="cart-subtotal" class="font-mono text-slate-200">$0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Estimated Tax (8%)</span>
+              <span id="cart-tax" class="font-mono text-slate-200">$0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>TEXX Quantum Express Shipping</span>
+              <span class="font-mono text-brand-neon font-semibold">FREE</span>
+            </div>
+            <div class="border-t border-slate-800 pt-2 flex justify-between text-base font-bold text-white">
+              <span>Total Due</span>
+              <span id="cart-total" class="font-mono text-brand-400 text-lg">$0.00</span>
+            </div>
+          </div>
+
+          <button id="btn-go-to-checkout" class="btn-shimmer w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-semibold flex items-center justify-center gap-2 shadow-lg shadow-brand-600/30 hover:scale-[1.01] active:scale-[0.99] transition disabled:opacity-50 disabled:pointer-events-none">
+            <i class="fa-solid fa-lock"></i>
+            <span>Proceed to Nexus Checkout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- SCREEN 3: NEXUS SECURE CHECKOUT PAGE -->
+  <!-- ========================================================================= -->
+  <section id="screen-checkout" class="hidden min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+    <!-- Top Action Bar -->
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <button id="btn-checkout-back-to-store" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Return to Store Catalog</span>
+      </button>
+
+      <!-- Security Status Badge -->
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <i class="fa-solid fa-shield-halved text-amber-400"></i>
+        <span>Mockup Environment: No Real Payments</span>
+      </div>
+    </div>
+
+    <!-- Quick Test Cards Selection Bar -->
+    <div class="mb-8 p-4 sm:p-5 rounded-2xl border border-brand-500/40 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 shadow-xl">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-brand-500/20 text-brand-300 border border-brand-500/30">TEST CARDS READY</span>
+            <h4 class="text-sm font-bold text-white">Authorized Sandbox Card Numbers (Passing Luhn)</h4>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Real credit cards are prohibited and automatically rejected. Click any card below to auto-fill:
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+          <button type="button" class="quick-card-btn px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 font-mono transition flex items-center gap-1.5" data-card="4111111111111111">
+            <i class="fa-brands fa-cc-visa text-blue-400"></i> Visa 4111...
+          </button>
+          <button type="button" class="quick-card-btn px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 font-mono transition flex items-center gap-1.5" data-card="5555555555554444">
+            <i class="fa-brands fa-cc-mastercard text-amber-400"></i> Master 5555...
+          </button>
+          <button type="button" class="quick-card-btn px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 font-mono transition flex items-center gap-1.5" data-card="378282246310005">
+            <i class="fa-brands fa-cc-amex text-cyan-400"></i> Amex 3782...
+          </button>
+          <button id="btn-fill-test-data" type="button" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-md transition">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Fill All Mock Data
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Checkout Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex p-3 rounded-2xl bg-brand-500/10 text-brand-400 mb-3 border border-brand-500/20">
+        <i class="fa-regular fa-credit-card text-2xl"></i>
+      </div>
+      <h2 class="text-3xl font-display font-extrabold text-white">Nexus Secure Checkout (Simulation)</h2>
+      <p class="text-slate-400 text-sm mt-1">Review mock physical delivery details and provide sample payment credentials.</p>
+    </div>
+
+    <!-- Quick Load Cached Details Alert (If available) -->
+    <div id="saved-vault-banner" class="hidden mb-8 p-4 rounded-xl border border-indigo-500/30 bg-indigo-950/40 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-bookmark text-indigo-400"></i>
+        <div>
+          <p class="text-sm font-semibold text-slate-200">Saved Credentials Found in Browser Vault</p>
+          <p class="text-xs text-slate-400">You have previously saved card and physical address information.</p>
+        </div>
+      </div>
+      <button id="btn-autofill-saved" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold whitespace-nowrap transition">
+        Auto-Fill Details
+      </button>
+    </div>
+
+    <!-- 2-Column Checkout Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left Column: Forms (Address + Payment) -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- STEP 1: SHIPPING ADDRESS -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+              <h3 class="font-display font-bold text-lg text-white">Physical Delivery Address</h3>
+            </div>
+            <!-- Dynamic Arrival Date Badge -->
+            <div class="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-brand-neon font-medium flex items-center gap-1.5">
+              <i class="fa-solid fa-truck-fast"></i>
+              <span>Est. Delivery: <strong id="checkout-arrival-date">Calculating...</strong></span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Full Recipient Name <span class="text-amber-400 font-normal">(Sample / Fake Name)</span></label>
+              <input type="text" id="ship-name" placeholder="e.g. Alex Mercer" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Street Address <span class="text-amber-400 font-normal">(Sample / Fake Address)</span></label>
+              <input type="text" id="ship-street" placeholder="e.g. 742 Evergreen Terrace" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">City <span class="text-amber-400 font-normal">(Sample)</span></label>
+              <input type="text" id="ship-city" placeholder="e.g. Springfield" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Postal / ZIP Code</label>
+              <input type="text" id="ship-zip" placeholder="97477" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Country / Region</label>
+              <select id="ship-country" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="DE">Germany</option>
+                <option value="JP">Japan</option>
+                <option value="IN">India</option>
+                <option value="AU">Australia</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: PAYMENT CREDENTIALS -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+              <h3 class="font-display font-bold text-lg text-white">Payment Method</h3>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-amber-300 bg-amber-950/40 border border-amber-800/40 px-2.5 py-1 rounded-md font-mono">
+              <i class="fa-solid fa-code"></i>
+              <span>Luhn Validated Demo</span>
+            </div>
+          </div>
+
+          <!-- Card Form -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Cardholder Name <span class="text-amber-400 font-normal">(Sample / Fake Name)</span></label>
+              <input type="text" id="card-name" placeholder="e.g. ALEX MERCER" class="w-full uppercase tracking-wider bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
+            </div>
+
+            <!-- Card Number Input + Brand Indicator -->
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="text-xs font-medium text-slate-300">Card Number <span class="text-amber-400 font-normal">(Sandbox Test Card Only)</span></label>
+                <span id="card-brand-label" class="text-xs font-mono font-semibold text-slate-400">GENERIC</span>
+              </div>
+              
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="card-number" 
+                  maxlength="19"
+                  placeholder="4111 1111 1111 1111" 
+                  class="font-mono tracking-wider w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-100 rounded-xl pl-4 pr-12 py-2.5 outline-none transition"
+                >
+                <div class="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center text-slate-400" id="card-brand-icon-box">
+                  <i class="fa-regular fa-credit-card text-base"></i>
+                </div>
+              </div>
+              
+              <!-- Subtext info -->
+              <p class="text-[11px] text-amber-400/90 mt-1.5 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Only recognized sandbox test numbers passing Luhn are permitted. Real cards are auto-blocked and erased.</span>
+              </p>
+
+              <!-- Luhn Error Feedback Message -->
+              <p id="card-error-msg" class="hidden text-xs text-rose-400 mt-2 font-medium flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="card-error-text">Invalid card number. Must pass the Luhn algorithm checksum.</span>
+              </p>
+            </div>
+
+            <!-- Expiry & CVC -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1.5">Expires (MM/YY) <span class="text-amber-400 font-normal">(Sample)</span></label>
+                <input 
+                  type="text" 
+                  id="card-expiry" 
+                  maxlength="5" 
+                  placeholder="12/28" 
+                  class="font-mono text-center tracking-wider w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition"
+                >
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1.5">CVC / CVV <span class="text-amber-400 font-normal">(Sample)</span></label>
+                <input 
+                  type="password" 
+                  id="card-cvc" 
+                  maxlength="4" 
+                  placeholder="123" 
+                  class="font-mono text-center tracking-widest w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition"
+                >
+              </div>
+            </div>
+
+            <!-- Save Card & Address Checkbox (LocalStorage) -->
+            <div class="pt-2">
+              <label class="flex items-start gap-3 cursor-pointer group select-none">
+                <input type="checkbox" id="save-info-checkbox" checked class="mt-0.5 rounded bg-slate-950 border-slate-700 text-brand-600 focus:ring-0 focus:ring-offset-0 w-4 h-4 cursor-pointer">
+                <div class="text-xs text-slate-300">
+                  <span class="font-medium group-hover:text-white transition">Save fake card & address info in browser cache for next time</span>
+                  <p class="text-slate-400 mt-0.5">Stored solely in your browser's private local vault so you don't have to retype test values.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMONSTRATION DISCLAIMER BANNER -->
+        <div class="p-4 sm:p-5 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-200 text-xs flex items-start gap-3 shadow">
+          <i class="fa-solid fa-triangle-exclamation text-amber-400 text-base mt-0.5 flex-shrink-0"></i>
+          <div class="leading-relaxed">
+            <strong class="text-amber-100 uppercase tracking-wide block mb-0.5">Important Security Disclaimer</strong>
+            This is a frontend demonstration mockup for fictional tech brand TEXX. It is completely fake and safe: <strong>no real payment processing occurs, no banking institution is contacted, and your card is NEVER charged.</strong> Always use fictional or test data.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Order Summary & Pay Action -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-5 sticky top-28">
+          <h3 class="font-display font-bold text-lg text-white pb-3 border-b border-slate-800 flex items-center justify-between">
+            <span>Order Summary</span>
+            <span id="checkout-badge-total-items" class="text-xs font-mono text-brand-400 bg-brand-500/10 px-2.5 py-0.5 rounded-full border border-brand-500/20">0 Items</span>
+          </h3>
+
+          <!-- Items Mini List -->
+          <div id="checkout-mini-items" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Price Calculations -->
+          <div class="space-y-2 text-sm pt-3 border-t border-slate-800">
+            <div class="flex justify-between text-slate-400">
+              <span>Items Subtotal</span>
+              <span id="summary-subtotal" class="font-mono text-slate-200">$0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Estimated Tax (8%)</span>
+              <span id="summary-tax" class="font-mono text-slate-200">$0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Nexus Express Delivery</span>
+              <span class="font-mono text-brand-neon font-semibold">FREE</span>
+            </div>
+            <div class="border-t border-slate-800 pt-3 flex justify-between text-lg font-bold text-white">
+              <span>Total Amount</span>
+              <span id="summary-total" class="font-mono text-brand-400">$0.00</span>
+            </div>
+          </div>
+
+          <!-- Complete Purchase Button -->
+          <button id="btn-complete-purchase" class="btn-shimmer w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-base shadow-xl shadow-brand-600/30 hover:scale-[1.01] active:scale-[0.99] transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-lock text-sm"></i>
+            <span>Complete Purchase</span>
+          </button>
+
+          <div class="text-[11px] text-slate-400 text-center flex items-center justify-center gap-2 pt-2">
+            <i class="fa-solid fa-shield-halved text-brand-accent"></i>
+            <span>Nexus End-to-End Encrypted Simulation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: SPINNER PROCESSING PAYMENT -->
+  <!-- ========================================================================= -->
+  <div id="processing-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="max-w-sm w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center flex flex-col items-center shadow-2xl">
+      <!-- Rotating Circle Spinner -->
+      <div class="relative w-24 h-24 mb-6">
+        <div class="w-full h-full rounded-full border-4 border-slate-800"></div>
+        <div class="w-full h-full rounded-full border-4 border-transparent border-t-brand-500 border-r-indigo-500 animate-spin absolute inset-0"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <i class="fa-solid fa-bolt text-brand-400 text-xl animate-pulse"></i>
+        </div>
+      </div>
+
+      <h4 class="text-xl font-display font-bold text-white mb-2">Processing Payment...</h4>
+      <p class="text-xs text-slate-400 mb-4" id="processing-step-text">Verifying test card authorization & token handshake</p>
+
+      <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+        <div id="processing-progress-bar" class="bg-gradient-to-r from-brand-500 to-indigo-500 h-full w-0 transition-all duration-300"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- SCREEN 4: PAYMENT COMPLETE SUCCESS SCREEN -->
+  <!-- ========================================================================= -->
+  <section id="screen-success" class="hidden min-h-screen py-16 px-4 flex flex-col items-center justify-center text-center">
+    <div class="max-w-lg w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+      <!-- Glow ambient -->
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-neon/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Success Check Icon -->
+      <div class="w-20 h-20 rounded-2xl bg-brand-neon/15 border border-brand-neon/30 text-brand-neon mx-auto flex items-center justify-center text-3xl mb-6 shadow-lg shadow-brand-neon/10">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-neon/10 text-brand-neon text-xs font-mono font-semibold uppercase tracking-wider mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-neon"></span> Transaction Approved
+      </div>
+
+      <h2 class="text-3xl font-display font-extrabold text-white mb-2">Payment Complete!</h2>
+      <p class="text-sm text-slate-300 mb-6">
+        Thank you for trying out the TEXX simulator. Your mock order has been logged into the simulation queue.
+      </p>
+
+      <!-- Receipt Box -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 text-left space-y-2.5 text-xs font-mono mb-8">
+        <div class="flex justify-between text-slate-400">
+          <span>Order ID:</span>
+          <span id="receipt-order-id" class="text-brand-400 font-bold">TEXX-99824-NX</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Amount Paid:</span>
+          <span id="receipt-total" class="text-white font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Payment Source:</span>
+          <span id="receipt-card-brand" class="text-slate-300">VISA (•••• 1111)</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Delivery Estimated:</span>
+          <span id="receipt-arrival-date" class="text-brand-neon font-semibold">In 3 business days</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Destination:</span>
+          <span id="receipt-address" class="text-slate-300 truncate max-w-[180px]">Simulated Address</span>
+        </div>
+      </div>
+
+      <!-- Continue Shopping Button (Returns to Store Catalog) -->
+      <button id="btn-success-back-to-store" class="btn-shimmer w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-base shadow-xl shadow-brand-600/30 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Continue Shopping</span>
+      </button>
+
+      <p class="text-[11px] text-slate-400 mt-4">
+        (Note: You are directed back to the store catalog, retaining your saved mock credentials for faster future checkouts.)
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-400 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-display font-bold text-slate-300">TEXX LABS</span>
+        <span>•</span>
+        <span>Nexus Secure Payment Gateway Mockup</span>
+      </div>
+      <div class="text-slate-400">
+        Demo Prototype • No real funds or financial instruments involved
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC -->
+  <!-- ========================================================================= -->
+  <script>
+    /* =======================================================================
+       1. DATA & STATE MANAGEMENT
+       ======================================================================= */
+    // Catalog of fictional TEXX products
+    const PRODUCTS = [
+      {
+        id: 'texx-01',
+        name: 'TEXX NovaPulse Over-Ear',
+        category: 'audio',
+        price: 299.00,
+        badge: 'Neural Audio',
+        desc: 'Zero-latency spatial audio headphones with synaptic haptic drivers and planar magnetic diaphragms.',
+        icon: 'fa-headphones-simple',
+        color: 'from-indigo-600/20 to-purple-600/20',
+        tag: 'BESTSELLER'
+      },
+      {
+        id: 'texx-02',
+        name: 'TEXX Quantum 75% Keyboard',
+        category: 'peripherals',
+        price: 189.00,
+        badge: 'Input Interface',
+        desc: 'CNC milled brass chassis with magnetic hall-effect switches and programmable analog travel.',
+        icon: 'fa-keyboard',
+        color: 'from-cyan-600/20 to-blue-600/20',
+        tag: 'RAPID TRIGGER'
+      },
+      {
+        id: 'texx-03',
+        name: 'TEXX ChronoSync Smartwatch',
+        category: 'wearables',
+        price: 349.00,
+        badge: 'Smart Wearables',
+        desc: 'Titanium grade 5 casing with micro-OLED 120Hz display and biological biometric sensors.',
+        icon: 'fa-stopwatch',
+        color: 'from-emerald-600/20 to-teal-600/20',
+        tag: 'NEW'
+      },
+      {
+        id: 'texx-04',
+        name: 'TEXX Graphene Reactor 140W',
+        category: 'power',
+        price: 99.00,
+        badge: 'Power & Energy',
+        desc: 'Solid-state graphene cell capable of 140W PD charging up to 4 devices concurrently.',
+        icon: 'fa-bolt-lightning',
+        color: 'from-amber-600/20 to-orange-600/20',
+        tag: 'HIGH CAPACITY'
+      },
+      {
+        id: 'texx-05',
+        name: 'TEXX Iris Zero AR Glasses',
+        category: 'wearables',
+        price: 499.00,
+        badge: 'Quantum Optics',
+        desc: 'Featherlight 42g optical waveguide frames with transparent HUD and gesture recognition.',
+        icon: 'fa-glasses',
+        color: 'from-fuchsia-600/20 to-pink-600/20',
+        tag: 'REVOLUTIONARY'
+      },
+      {
+        id: 'texx-06',
+        name: 'TEXX CyberMouse Ultralight',
+        category: 'peripherals',
+        price: 129.00,
+        badge: 'Input Interface',
+        desc: 'Magnesium skeleton weighing 39g with 8000Hz polling rate and optical photon switches.',
+        icon: 'fa-computer-mouse',
+        color: 'from-sky-600/20 to-blue-600/20',
+        tag: '8000 HZ'
+      },
+      {
+        id: 'texx-07',
+        name: 'TEXX Orbit Spatial Speaker',
+        category: 'audio',
+        price: 219.00,
+        badge: 'Neural Audio',
+        desc: '360-degree acoustic acoustic levitation driver array delivering high-resolution room acoustics.',
+        icon: 'fa-volume-high',
+        color: 'from-violet-600/20 to-indigo-600/20',
+        tag: 'HI-RES'
+      },
+      {
+        id: 'texx-08',
+        name: 'TEXX MagSafe Flux Dock',
+        category: 'power',
+        price: 79.00,
+        badge: 'Power & Energy',
+        desc: 'Qi2 certified 3-in-1 magnetic wireless fast charging hub with active cryo-cooling system.',
+        icon: 'fa-charging-station',
+        color: 'from-teal-600/20 to-emerald-600/20',
+        tag: 'ACTIVE COOLING'
+      }
+    ];
+
+    // Authorized sandbox testing card numbers
+    const AUTHORIZED_TEST_CARDS = [
+      '4111111111111111', // Visa Test
+      '4000000000000002', // Visa Test 2
+      '4242424242424242', // Stripe Test Visa
+      '5555555555554444', // Mastercard Test
+      '5105105105105100', // Mastercard Test 2
+      '378282246310005',  // Amex Test
+      '371449635398431',  // Amex Test 2
+      '6011111111111117', // Discover Test
+      '3528123456789012'  // JCB Test
+    ];
+
+    // State Variables
+    let cart = []; // Array of { productId, quantity }
+    let activeCategory = 'all';
+    let searchQuery = '';
+    const STORAGE_KEY = 'texx_mockup_vault';
+
+    /* =======================================================================
+       2. INITIALIZATION & DOM REFERENCES
+       ======================================================================= */
+    const screenWelcome = document.getElementById('screen-welcome');
+    const screenStore = document.getElementById('screen-store');
+    const screenCheckout = document.getElementById('screen-checkout');
+    const screenSuccess = document.getElementById('screen-success');
+    const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
+    const processingModal = document.getElementById('processing-modal');
+    const realCardModal = document.getElementById('real-card-modal');
+
+    // On Load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      updateArrivalDateDisplay();
+      checkSavedVaultData();
+      setupEventListeners();
+    });
+
+    /* =======================================================================
+       3. NAVIGATION & ROUTING
+       ======================================================================= */
+    function switchScreen(screenToShow) {
+      screenWelcome.classList.add('hidden');
+      screenStore.classList.add('hidden');
+      screenCheckout.classList.add('hidden');
+      screenSuccess.classList.add('hidden');
+
+      screenToShow.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToStoreHome() {
+      switchScreen(screenStore);
+    }
+
+    /* =======================================================================
+       4. PRODUCTS RENDERING & FILTERING
+       ======================================================================= */
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+
+      const filtered = PRODUCTS.filter(prod => {
+        const matchesCategory = (activeCategory === 'all' || prod.category === activeCategory);
+        const matchesQuery = prod.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                             prod.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                             prod.badge.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400">
+            <i class="fa-solid fa-box-open text-4xl mb-3 text-slate-600 block"></i>
+            <p class="text-base font-semibold">No futuristic gear matched your search.</p>
+            <p class="text-xs text-slate-400 mt-1">Try resetting the category filter or searching for "audio", "keyboard", or "power".</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(product => {
+        const card = document.createElement('div');
+        card.className = "group relative rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-brand-500/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-brand-500/10 hover:-translate-y-1";
+
+        card.innerHTML = `
+          <div>
+            <!-- Visual Graphic Placeholder with Brand Identifier -->
+            <div class="relative w-full h-44 rounded-xl bg-gradient-to-br ${product.color} border border-slate-800 flex flex-col items-center justify-center p-4 overflow-hidden mb-4 group-hover:scale-[1.01] transition-transform">
+              <div class="absolute top-2.5 left-3 text-[10px] font-mono tracking-widest text-slate-400 uppercase font-bold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-neon"></span> TEXX SPEC
+              </div>
+              <span class="absolute top-2.5 right-3 text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950/70 border border-slate-700/60 text-brand-300 font-semibold">${product.tag}</span>
+
+              <!-- Fictional Device Graphic Icon -->
+              <div class="w-16 h-16 rounded-2xl bg-slate-900/90 border border-slate-700/80 flex items-center justify-center text-brand-400 shadow-inner group-hover:scale-110 transition-transform">
+                <i class="fa-solid ${product.icon} text-2xl"></i>
+              </div>
+
+              <!-- Brand watermark below icon -->
+              <span class="mt-2 text-[11px] font-display font-extrabold tracking-widest text-slate-400 uppercase">TEXX • HARDWARE</span>
+            </div>
+
+            <!-- Details -->
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-brand-accent font-mono font-medium">${product.badge}</span>
+              <span class="text-slate-400 text-[11px]">Free Shipping</span>
+            </div>
+
+            <h3 class="text-base font-display font-bold text-white group-hover:text-brand-300 transition-colors">${product.name}</h3>
+            <p class="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">${product.desc}</p>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase block font-mono">Price</span>
+              <span class="text-lg font-mono font-bold text-white">$${product.price.toFixed(2)}</span>
+            </div>
+
+            <button onclick="addToCart('${product.id}')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-brand-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center gap-2 border border-slate-700 hover:border-brand-500 transition-all shadow active:scale-95">
+              <i class="fa-solid fa-plus text-xs"></i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* =======================================================================
+       5. CART OPERATIONS & AUTO-RECALCULATIONS
+       ======================================================================= */
+    function addToCart(productId) {
+      const existing = cart.find(item => item.productId === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ productId, quantity: 1 });
+      }
+      updateCartUI();
+      const product = PRODUCTS.find(p => p.id === productId);
+      showToast(`Added ${product ? product.name : 'Item'} to cart!`, 'success');
+    }
+
+    function updateQuantity(productId, delta) {
+      const item = cart.find(i => i.productId === productId);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.productId !== productId);
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(i => i.productId !== productId);
+      updateCartUI();
+      showToast('Item removed from cart', 'info');
+    }
+
+    function calculateCartTotals() {
+      let subtotal = 0;
+      let totalItems = 0;
+
+      cart.forEach(item => {
+        const prod = PRODUCTS.find(p => p.id === item.productId);
+        if (prod) {
+          subtotal += prod.price * item.quantity;
+          totalItems += item.quantity;
+        }
+      });
+
+      const tax = subtotal * 0.08; // 8% sales tax
+      const total = subtotal + tax;
+
+      return { subtotal, tax, total, totalItems };
+    }
+
+    function updateCartUI() {
+      const { subtotal, tax, total, totalItems } = calculateCartTotals();
+
+      // Update badge counts
+      document.getElementById('cart-badge-count').textContent = totalItems;
+      document.getElementById('cart-item-count-text').textContent = `${totalItems} item${totalItems === 1 ? '' : 's'} selected`;
+
+      // Update cart drawer numbers
+      document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('cart-tax').textContent = `$${tax.toFixed(2)}`;
+      document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+
+      // Disable or enable checkout buttons
+      const checkoutBtn = document.getElementById('btn-go-to-checkout');
+      checkoutBtn.disabled = totalItems === 0;
+
+      // Populate items in Drawer
+      const container = document.getElementById('cart-items-container');
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-20 text-center text-slate-400">
+            <i class="fa-solid fa-cart-shopping text-4xl text-slate-700 mb-3 block"></i>
+            <p class="text-sm font-semibold text-slate-300">Your cart is currently empty</p>
+            <p class="text-xs text-slate-400 mt-1">Add items from the store to test the Nexus checkout.</p>
+          </div>
+        `;
+      } else {
+        cart.forEach(item => {
+          const prod = PRODUCTS.find(p => p.id === item.productId);
+          if (!prod) return;
+
+          const itemRow = document.createElement('div');
+          itemRow.className = "p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-3";
+
+          itemRow.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-12 h-12 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-400 flex-shrink-0">
+                <i class="fa-solid ${prod.icon}"></i>
+              </div>
+              <div class="truncate">
+                <h4 class="text-xs font-bold text-white truncate">${prod.name}</h4>
+                <p class="text-[11px] font-mono text-brand-400 mt-0.5">$${prod.price.toFixed(2)} each</p>
+              </div>
+            </div>
+
+            <!-- Quantity adjusters (+ / -) -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <div class="flex items-center bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden">
+                <button onclick="updateQuantity('${prod.id}', -1)" class="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 text-xs transition">
+                  <i class="fa-solid fa-minus text-[10px]"></i>
+                </button>
+                <span class="w-7 text-center font-mono text-xs font-semibold text-slate-200">${item.quantity}</span>
+                <button onclick="updateQuantity('${prod.id}', 1)" class="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 text-xs transition">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                </button>
+              </div>
+
+              <button onclick="removeFromCart('${prod.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 transition" title="Remove">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+              </button>
+            </div>
+          `;
+          container.appendChild(itemRow);
+        });
+      }
+
+      // Update Checkout summary if on Checkout Screen
+      renderCheckoutSummary();
+    }
+
+    function renderCheckoutSummary() {
+      const { subtotal, tax, total, totalItems } = calculateCartTotals();
+
+      document.getElementById('checkout-badge-total-items').textContent = `${totalItems} item${totalItems === 1 ? '' : 's'}`;
+      document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
+      document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+
+      const miniContainer = document.getElementById('checkout-mini-items');
+      miniContainer.innerHTML = '';
+
+      cart.forEach(item => {
+        const prod = PRODUCTS.find(p => p.id === item.productId);
+        if (!prod) return;
+
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between text-xs py-1.5 border-b border-slate-800/60";
+        row.innerHTML = `
+          <div class="flex items-center gap-2 truncate pr-2">
+            <span class="font-mono text-slate-400 font-bold">${item.quantity}x</span>
+            <span class="text-slate-200 truncate">${prod.name}</span>
+          </div>
+          <span class="font-mono text-slate-300 font-semibold flex-shrink-0">$${(prod.price * item.quantity).toFixed(2)}</span>
+        `;
+        miniContainer.appendChild(row);
+      });
+    }
+
+    /* =======================================================================
+       6. DYNAMIC DELIVERY DATE CALCULATION
+       ======================================================================= */
+    function updateArrivalDateDisplay() {
+      const today = new Date();
+      // Estimated delivery is between 3 to 4 business days from current date
+      const arrival = new Date(today);
+      arrival.setDate(today.getDate() + 3);
+
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      const formatted = arrival.toLocaleDateString('en-US', options);
+
+      document.getElementById('checkout-arrival-date').textContent = formatted;
+      document.getElementById('receipt-arrival-date').textContent = `${formatted} (Express Dispatch)`;
+    }
+
+    /* =======================================================================
+       7. LUHN ALGORITHM & CARD VALIDATION & REAL CARD BLOCKER
+       ======================================================================= */
+    // Mathematical Luhn Algorithm Checksum
+    function validateLuhn(numberString) {
+      const cleaned = numberString.replace(/\D/g, '');
+      if (cleaned.length < 13 || cleaned.length > 19) return false;
+
+      let sum = 0;
+      let shouldDouble = false;
+
+      for (let i = cleaned.length - 1; i >= 0; i--) {
+        let digit = parseInt(cleaned.charAt(i), 10);
+
+        if (shouldDouble) {
+          digit *= 2;
+          if (digit > 9) digit -= 9;
+        }
+
+        sum += digit;
+        shouldDouble = !shouldDouble;
+      }
+
+      return (sum % 10) === 0;
+    }
+
+    // Check if the card is an authorized sandbox test card
+    function isAuthorizedTestCard(rawDigits) {
+      // Direct exact match with recognized sandbox cards
+      if (AUTHORIZED_TEST_CARDS.includes(rawDigits)) {
+        return true;
+      }
+      // Or matches standard dummy repeated sandbox patterns (e.g. 4111 1111..., 4000 0000...)
+      const repeatedRegex = /^(4111|4000|4242|5555|5105|3782|3714|6011)[0-9]{11,12}$/;
+      return repeatedRegex.test(rawDigits);
+    }
+
+    // Identify Card Brand by Prefix
+    function detectCardBrand(numberString) {
+      const cleaned = numberString.replace(/\D/g, '');
+      if (/^4/.test(cleaned)) return { name: 'VISA', icon: 'fa-brands fa-cc-visa text-blue-400' };
+      if (/^(5[1-5]|2[2-7])/.test(cleaned)) return { name: 'MASTERCARD', icon: 'fa-brands fa-cc-mastercard text-amber-400' };
+      if (/^3[47]/.test(cleaned)) return { name: 'AMEX', icon: 'fa-brands fa-cc-amex text-cyan-400' };
+      if (/^6(011|5)/.test(cleaned)) return { name: 'DISCOVER', icon: 'fa-brands fa-cc-discover text-orange-400' };
+      return { name: 'GENERIC', icon: 'fa-regular fa-credit-card text-slate-400' };
+    }
+
+    function checkRealCardAndEnforce(inputEl) {
+      const rawVal = inputEl.value.replace(/\s+/g, '');
+      
+      // If user typed at least 15 digits (a full card length)
+      if (rawVal.length >= 15) {
+        const passesLuhn = validateLuhn(rawVal);
+        const isSandbox = isAuthorizedTestCard(rawVal);
+
+        // If card fails sandbox authorization (user attempted a real card or random card)
+        if (!isSandbox) {
+          // Auto-erase immediately
+          inputEl.value = '';
+          updateCardBrandUI('');
+          showRealCardModal();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function showRealCardModal() {
+      realCardModal.classList.remove('hidden');
+    }
+
+    function hideRealCardModal() {
+      realCardModal.classList.add('hidden');
+      const cardInput = document.getElementById('card-number');
+      cardInput.focus();
+    }
+
+    function updateCardBrandUI(val) {
+      const brand = detectCardBrand(val);
+      document.getElementById('card-brand-label').textContent = brand.name;
+      document.getElementById('card-brand-icon-box').innerHTML = `<i class="${brand.icon} text-lg"></i>`;
+    }
+
+    // Format input as 4-4-4-4
+    function formatCardNumber(value) {
+      const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      const matches = v.match(/\d{4,16}/g);
+      const match = matches && matches[0] || '';
+      const parts = [];
+
+      for (let i = 0, len = match.length; i < len; i += 4) {
+        parts.push(match.substring(i, i + 4));
+      }
+
+      if (parts.length) {
+        return parts.join(' ');
+      } else {
+        return value;
+      }
+    }
+
+    /* =======================================================================
+       8. LOCAL STORAGE / BROWSER CACHE
+       ======================================================================= */
+    function saveDetailsToVault() {
+      const data = {
+        name: document.getElementById('ship-name').value.trim(),
+        street: document.getElementById('ship-street').value.trim(),
+        city: document.getElementById('ship-city').value.trim(),
+        zip: document.getElementById('ship-zip').value.trim(),
+        country: document.getElementById('ship-country').value,
+        cardName: document.getElementById('card-name').value.trim(),
+        cardNumber: document.getElementById('card-number').value.trim(),
+        cardExpiry: document.getElementById('card-expiry').value.trim()
+      };
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.warn('LocalStorage unavailable in sandbox:', e);
+      }
+    }
+
+    function checkSavedVaultData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const banner = document.getElementById('saved-vault-banner');
+          if (banner) banner.classList.remove('hidden');
+        }
+      } catch (e) {
+        console.warn('LocalStorage access blocked:', e);
+      }
+    }
+
+    function fillSavedVaultData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+
+        if (data.name) document.getElementById('ship-name').value = data.name;
+        if (data.street) document.getElementById('ship-street').value = data.street;
+        if (data.city) document.getElementById('ship-city').value = data.city;
+        if (data.zip) document.getElementById('ship-zip').value = data.zip;
+        if (data.country) document.getElementById('ship-country').value = data.country;
+
+        if (data.cardName) document.getElementById('card-name').value = data.cardName;
+        if (data.cardNumber) {
+          document.getElementById('card-number').value = data.cardNumber;
+          updateCardBrandUI(data.cardNumber);
+        }
+        if (data.cardExpiry) document.getElementById('card-expiry').value = data.cardExpiry;
+        document.getElementById('card-cvc').value = '987';
+
+        showToast('Vault details loaded into form!', 'success');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function fillSampleTestData() {
+      document.getElementById('ship-name').value = 'Dr. Gordon Vance';
+      document.getElementById('ship-street').value = '404 Nexus Quantum Way';
+      document.getElementById('ship-city').value = 'Cyber Metro';
+      document.getElementById('ship-zip').value = '90210';
+      document.getElementById('ship-country').value = 'US';
+
+      document.getElementById('card-name').value = 'GORDON VANCE';
+      document.getElementById('card-number').value = '4111 1111 1111 1111';
+      updateCardBrandUI('4111111111111111');
+      document.getElementById('card-expiry').value = '11/29';
+      document.getElementById('card-cvc').value = '742';
+
+      // Clear any card errors
+      document.getElementById('card-error-msg').classList.add('hidden');
+      document.getElementById('card-number').classList.remove('border-rose-500', 'focus:border-rose-500');
+
+      showToast('Loaded valid sandbox test data!', 'info');
+    }
+
+    /* =======================================================================
+       9. SIMULATED CHECKOUT & PAYMENT HANDSHAKE
+       ======================================================================= */
+    function completePurchase() {
+      // 1. Validate Address Fields
+      const shipName = document.getElementById('ship-name').value.trim();
+      const shipStreet = document.getElementById('ship-street').value.trim();
+      const shipCity = document.getElementById('ship-city').value.trim();
+      const shipZip = document.getElementById('ship-zip').value.trim();
+
+      if (!shipName || !shipStreet || !shipCity || !shipZip) {
+        showToast('Please fill out all required physical address fields.', 'error');
+        return;
+      }
+
+      // 2. Validate Card Inputs
+      const cardName = document.getElementById('card-name').value.trim();
+      const cardNumberRaw = document.getElementById('card-number').value.replace(/\s+/g, '');
+      const cardExpiry = document.getElementById('card-expiry').value.trim();
+      const cardCvc = document.getElementById('card-cvc').value.trim();
+      const cardInputEl = document.getElementById('card-number');
+      const cardErrorMsg = document.getElementById('card-error-msg');
+      const cardErrorText = document.getElementById('card-error-text');
+
+      if (!cardName) {
+        showToast('Please provide a cardholder name.', 'error');
+        return;
+      }
+
+      // 3. Strict Real Card Check: Must be recognized test card
+      if (!isAuthorizedTestCard(cardNumberRaw)) {
+        cardInputEl.value = '';
+        updateCardBrandUI('');
+        showRealCardModal();
+        return;
+      }
+
+      // 4. Mathematical Luhn Check
+      const passesLuhn = validateLuhn(cardNumberRaw);
+      if (!passesLuhn) {
+        cardInputEl.classList.add('border-rose-500', 'focus:border-rose-500');
+        cardErrorText.textContent = 'Invalid card number checksum. Fails mathematical Luhn verification.';
+        cardErrorMsg.classList.remove('hidden');
+        cardInputEl.focus();
+        showToast('Card number failed Luhn algorithm checksum!', 'error');
+        return;
+      } else {
+        cardInputEl.classList.remove('border-rose-500', 'focus:border-rose-500');
+        cardErrorMsg.classList.add('hidden');
+      }
+
+      // 5. Expiry & CVC simple checks
+      if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+        showToast('Expiry must follow MM/YY format (e.g. 12/28).', 'error');
+        return;
+      }
+      if (cardCvc.length < 3) {
+        showToast('Please enter a valid 3 or 4 digit CVC.', 'error');
+        return;
+      }
+
+      // 6. Handle Browser Cache Persistence if checked
+      const saveChecked = document.getElementById('save-info-checkbox').checked;
+      if (saveChecked) {
+        saveDetailsToVault();
+      }
+
+      // 7. Trigger Animated Spinner Sequence
+      runPaymentSimulationSequence(cardNumberRaw, shipStreet, shipCity);
+    }
+
+    function runPaymentSimulationSequence(cardNumberRaw, street, city) {
+      const modal = document.getElementById('processing-modal');
+      const stepText = document.getElementById('processing-step-text');
+      const progressBar = document.getElementById('processing-progress-bar');
+
+      modal.classList.remove('hidden');
+      progressBar.style.width = '10%';
+      stepText.textContent = 'Verifying sandbox test card authorization...';
+
+      setTimeout(() => {
+        progressBar.style.width = '45%';
+        stepText.textContent = 'Executing zero-knowledge Luhn handshake...';
+      }, 900);
+
+      setTimeout(() => {
+        progressBar.style.width = '85%';
+        stepText.textContent = 'Generating encrypted TEXX dispatch receipt...';
+      }, 1800);
+
+      setTimeout(() => {
+        progressBar.style.width = '100%';
+        modal.classList.add('hidden');
+
+        // Populate Success Screen
+        const { total } = calculateCartTotals();
+        const brand = detectCardBrand(cardNumberRaw);
+        const last4 = cardNumberRaw.slice(-4);
+
+        document.getElementById('receipt-order-id').textContent = `TEXX-${Math.floor(100000 + Math.random() * 900000)}-NX`;
+        document.getElementById('receipt-total').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('receipt-card-brand').textContent = `${brand.name} (•••• ${last4})`;
+        document.getElementById('receipt-address').textContent = `${street}, ${city}`;
+
+        // Reset cart and switch to success screen
+        cart = [];
+        updateCartUI();
+        switchScreen(screenSuccess);
+      }, 2600);
+    }
+
+    /* =======================================================================
+       10. TOAST NOTIFICATIONS HELPER
+       ======================================================================= */
+    function showToast(msg, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+
+      const colors = {
+        success: 'border-emerald-500/50 bg-emerald-950/90 text-emerald-200',
+        error: 'border-rose-500/50 bg-rose-950/90 text-rose-200',
+        info: 'border-brand-500/50 bg-slate-900/90 text-slate-200'
+      };
+
+      const icons = {
+        success: 'fa-solid fa-circle-check text-emerald-400',
+        error: 'fa-solid fa-triangle-exclamation text-rose-400',
+        info: 'fa-solid fa-circle-info text-brand-400'
+      };
+
+      toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl border text-xs font-medium shadow-2xl backdrop-blur transition-all duration-300 transform translate-y-2 opacity-0 ${colors[type] || colors.info}`;
+      toast.innerHTML = `<i class="${icons[type] || icons.info}"></i> <span>${msg}</span>`;
+
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-4');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    /* =======================================================================
+       11. EVENT LISTENERS
+       ======================================================================= */
+    function setupEventListeners() {
+      // 1. Welcome Screen "Start Shopping" button (Centered)
+      document.getElementById('btn-start-shopping').addEventListener('click', () => {
+        switchScreen(screenStore);
+      });
+
+      // 2. Real card modal close button
+      document.getElementById('btn-close-real-card-modal').addEventListener('click', hideRealCardModal);
+
+      // 3. Cart Drawer open & close
+      document.getElementById('btn-open-cart').addEventListener('click', () => {
+        cartDrawerOverlay.classList.remove('hidden');
+      });
+      document.getElementById('btn-close-cart').addEventListener('click', () => {
+        cartDrawerOverlay.classList.add('hidden');
+      });
+      cartDrawerOverlay.addEventListener('click', (e) => {
+        if (e.target === cartDrawerOverlay) cartDrawerOverlay.classList.add('hidden');
+      });
+
+      // 4. Cart -> Checkout trigger
+      document.getElementById('btn-go-to-checkout').addEventListener('click', () => {
+        if (cart.length === 0) {
+          showToast('Please add at least one product to proceed.', 'error');
+          return;
+        }
+        cartDrawerOverlay.classList.add('hidden');
+        switchScreen(screenCheckout);
+        renderCheckoutSummary();
+      });
+
+      // 5. Checkout Return to Store Catalog button
+      document.getElementById('btn-checkout-back-to-store').addEventListener('click', () => {
+        switchScreen(screenStore);
+      });
+
+      // 6. Success Screen Return to Store Catalog button
+      document.getElementById('btn-success-back-to-store').addEventListener('click', () => {
+        switchScreen(screenStore);
+      });
+
+      // 7. Fill Test Data Buttons
+      document.getElementById('btn-fill-test-data').addEventListener('click', fillSampleTestData);
+
+      // Quick test card chips
+      document.querySelectorAll('.quick-card-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const cardNum = btn.getAttribute('data-card');
+          const input = document.getElementById('card-number');
+          input.value = formatCardNumber(cardNum);
+          updateCardBrandUI(cardNum);
+          document.getElementById('card-error-msg').classList.add('hidden');
+          input.classList.remove('border-rose-500', 'focus:border-rose-500');
+          showToast('Loaded ' + cardNum.slice(0, 4) + ' test card', 'info');
+        });
+      });
+
+      // 8. Auto-fill from Browser Local Storage
+      const autofillBtn = document.getElementById('btn-autofill-saved');
+      if (autofillBtn) autofillBtn.addEventListener('click', fillSavedVaultData);
+
+      // 9. Card number input real-time formatter & real-card block check
+      const cardInput = document.getElementById('card-number');
+      cardInput.addEventListener('input', (e) => {
+        const unformatted = e.target.value.replace(/\s+/g, '');
+        e.target.value = formatCardNumber(e.target.value);
+        updateCardBrandUI(unformatted);
+
+        // Check if real card was typed
+        checkRealCardAndEnforce(cardInput);
+      });
+
+      cardInput.addEventListener('blur', (e) => {
+        const raw = e.target.value.replace(/\s+/g, '');
+        if (raw.length > 0) {
+          checkRealCardAndEnforce(cardInput);
+        }
+      });
+
+      // 10. Expiry format (MM/YY)
+      const expiryInput = document.getElementById('card-expiry');
+      expiryInput.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.length >= 2) {
+          val = val.substring(0, 2) + '/' + val.substring(2, 4);
+        }
+        e.target.value = val;
+      });
+
+      // 11. Complete Purchase trigger
+      document.getElementById('btn-complete-purchase').addEventListener('click', completePurchase);
+
+      // 12. Search bar filtering
+      const searchInput = document.getElementById('store-search-input');
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderProducts();
+      });
+
+      // 13. Category Filters
+      const categoryBtns = document.querySelectorAll('.category-btn');
+      categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          categoryBtns.forEach(b => {
+            b.classList.remove('active', 'bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-600/30');
+            b.classList.add('bg-slate-900', 'border', 'border-slate-800', 'text-slate-300');
+          });
+          btn.classList.add('active', 'bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-600/30');
+          btn.classList.remove('bg-slate-900', 'border', 'border-slate-800', 'text-slate-300');
+          activeCategory = btn.getAttribute('data-cat');
+          renderProducts();
+        });
+      });
+    }
+  </script>
+</body>
+</html>
