@@ -419,4 +419,748 @@
       amex: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#0077A6"/><path d="M7 16l3.5-6h4.8l-4 6.7 4.1 6.3H10.5L7 16zm7.2-6l3.3 6.3L14.2 23h3.5l1.6-3.2h2.8l1.6 3.2h3.5l-3.3-6.7 3.2-6.3h-3.4l-1.6 3.2h-2.8L17.7 10h-3.5zm13 0v13h9.8v-2.8H30.5v-2.4h5.8v-2.7h-5.8v-2.3h6.5V10H27.2z" fill="#fff"/></svg>`,
       discover: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#fff"/><path d="M5 12h5.5c3.2 0 5.2 1.8 5.2 4s-2 4-5.2 4H5v-8zm3.2 6h2.2c1.3 0 2.2-.7 2.2-2s-.9-2-2.2-2H8.2v4zm15.8-2a5 5 0 10-10 0 5 5 0 0010 0z" fill="#111"/><circle cx="24" cy="16" r="5" fill="#FF6000"/><path d="M29 20l4.5-8h3.3l-5.8 9.5L37 30h-3.4l-4.6-10z" fill="#111"/></svg>`,
       diners: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#00669E"/><circle cx="24" cy="16" r="10" fill="#fff" fill-opacity="0.2"/><path d="M24 8a8 8 0 00-5.8 13.5L24 16V8zm0 16a8 8 0 005.8-13.5L24 16v8z" fill="#fff"/></svg>`,
-      jcb: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#fff"/><rect x="8" y="7
+      jcb: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#fff"/><rect x="8" y="7" width="9" height="18" rx="4.5" fill="#0060A9"/><rect x="19.5" y="7" width="9" height="18" rx="4.5" fill="#E60012"/><rect x="31" y="7" width="9" height="18" rx="4.5" fill="#00873C"/><path d="M11 18.5a2 2 0 002-2V11h-2v5.5a.5.5 0 01-.5.5c-.3 0-.5-.2-.5-.5V11H8v5.5a2 2 0 003 2zm11.5 0c1.7 0 3-1.1 3-2.7s-1.3-2.7-3-2.7h-1v5.4h1zm11.5-3.8c0-1.8 1.3-2.6 3.1-2.6.9 0 1.6.2 2.2.6v2c-.6-.4-1.3-.6-2-.6-.8 0-1.3.4-1.3 1 0 .6.4 1 1.4 1.2 1.8.4 2.8 1.1 2.8 2.7 0 1.8-1.4 2.7-3.2 2.7-1 0-1.8-.2-2.5-.7v-2.1c.7.5 1.5.8 2.3.8.9 0 1.4-.4 1.4-1 0-.6-.5-1-1.5-1.2-1.7-.4-2.7-1.1-2.7-2.8z" fill="#fff"/></svg>`,
+      unionpay: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#fff"/><path d="M8 7h9l-3 18H5l3-18z" fill="#E21B23"/><path d="M17 7h9l-3 18h-9l3-18z" fill="#005B9E"/><path d="M26 7h9l-3 18h-9l3-18z" fill="#007B5F"/><path d="M30 11h-4l-.5 3h3.8l-.5 2.5h-3.8l-.7 4.5h-2.5l1.7-10H30v-.001z" fill="#fff"/></svg>`,
+      rupay: `<svg viewBox="0 0 48 32" class="w-full h-full" fill="none"><rect width="48" height="32" rx="4" fill="#091428"/><path d="M12 9h5.5c2.8 0 4.5 1.4 4.5 3.5 0 2.2-1.7 3.5-4.5 3.5h-2.5l-1.5 7H9.5L12 9zm4.2 4.8h1.8c1.2 0 1.8-.5 1.8-1.4 0-.8-.6-1.3-1.8-1.3h-1.8l-.8 2.7zm9.8 4.2l3-9h3.8l-3 9h-3.8z" fill="#fff"/><path d="M30 10l5 13h4l5-13h-4l-3 8-3-8h-4z" fill="#008037"/><path d="M24 10l-4 13h3.8l4-13H24z" fill="#FF6600"/></svg>`
+    };
+
+    // Product Database
+    const PRODUCTS = [
+      {
+        id: 'texx-os',
+        name: 'TEXX Quantum OS Pro',
+        type: 'digital',
+        category: 'software',
+        price: 199.00,
+        desc: 'Distributed microkernel OS with deterministic scheduling & native neural pipelines.',
+        badge: 'Instant Digital Key',
+        specs: 'x86_64 / ARM64 • 1-Seat Lifetime',
+        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-render',
+        name: 'Neural Render Suite AI',
+        type: 'digital',
+        category: 'software',
+        price: 149.00,
+        desc: 'Real-time raytracing and neural diffusion accelerator for 3D modeling and VFX.',
+        badge: 'Instant Digital Key',
+        specs: 'CUDA / ROCm • Unlimited Nodes',
+        image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-zaplink',
+        name: 'ZapLink CyberShield 2.0',
+        type: 'digital',
+        category: 'software',
+        price: 79.00,
+        desc: 'WireGuard-optimized mesh routing with hardware-layer packet encryption.',
+        badge: 'Instant Digital Key',
+        specs: 'Multi-Device • 18-Digit License',
+        image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-phone',
+        name: 'TEXX Apex-1 Phone',
+        type: 'physical',
+        category: 'hardware',
+        price: 899.00,
+        desc: 'Titanium chassis, edge-to-edge 165Hz sapphire display, custom liquid heatsink.',
+        badge: 'Hardware Flagship',
+        specs: '16GB RAM • 512GB UFS 4.1',
+        image: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-headset',
+        name: 'TEXX Spatial Core ANC',
+        type: 'physical',
+        category: 'audio',
+        price: 329.00,
+        desc: 'Planar magnetic dual drivers, zero-latency lossless ultra-wideband bridge.',
+        badge: 'Hi-Res Certified',
+        specs: '5Hz - 48kHz • 42h Battery',
+        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-deck',
+        name: 'TEXX Matrix Keyboard',
+        type: 'physical',
+        category: 'hardware',
+        price: 219.00,
+        desc: 'Machined 6063 aerospace aluminum case with hall-effect magnetic switches.',
+        badge: 'Rapid Trigger',
+        specs: '8000Hz Polling • PBT Dye-sub',
+        image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-watch',
+        name: 'TEXX Chrono Bio-Wearable',
+        type: 'physical',
+        category: 'hardware',
+        price: 399.00,
+        desc: 'Continuous optical metabolic telemetry with grade 5 micro-etched titanium bezel.',
+        badge: 'Waterproof 10ATM',
+        specs: 'AMOLED • Dual GPS L1/L5',
+        image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'texx-audio',
+        name: 'TEXX Pulse Zero Earbuds',
+        type: 'physical',
+        category: 'audio',
+        price: 179.00,
+        desc: 'Beryllium coated drivers, adaptive ANC, spatial head-tracking sensor array.',
+        badge: 'Lossless Audio',
+        specs: 'Bluetooth 5.4 • IPX7',
+        image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80'
+      }
+    ];
+
+    // Card Providers Sandbox Data Pool
+    const PROVIDERS = {
+      visa: {
+        name: 'Visa',
+        svg: BRAND_SVGS.visa,
+        pattern: /^4/,
+        numbers: ['4000 1234 5678 9010', '4111 2222 3333 4444', '4242 4242 4242 4242']
+      },
+      mastercard: {
+        name: 'Mastercard',
+        svg: BRAND_SVGS.mastercard,
+        pattern: /^(5[1-5]|2[2-7])/,
+        numbers: ['5105 1051 0510 5100', '5555 5555 5555 4444', '5200 8282 8282 8210']
+      },
+      amex: {
+        name: 'Amex',
+        svg: BRAND_SVGS.amex,
+        pattern: /^3[47]/,
+        numbers: ['3782 822463 10005', '3400 111122 33334', '3714 496353 98431']
+      },
+      discover: {
+        name: 'Discover',
+        svg: BRAND_SVGS.discover,
+        pattern: /^(6011|65|64[4-9])/,
+        numbers: ['6011 0000 0000 0000', '6500 1234 5678 9012', '6440 1234 5678 9012']
+      },
+      diners: {
+        name: 'Diners Club',
+        svg: BRAND_SVGS.diners,
+        pattern: /^3(0[0-5]|[68])/,
+        numbers: ['3000 0000 0000 04', '3612 3456 7890 12', '3852 0000 0234 12']
+      },
+      jcb: {
+        name: 'JCB',
+        svg: BRAND_SVGS.jcb,
+        pattern: /^35(2[89]|[3-8][0-9])/,
+        numbers: ['3528 0000 0000 0000', '3566 1234 5678 9012', '3589 9876 5432 1000']
+      },
+      unionpay: {
+        name: 'UnionPay',
+        svg: BRAND_SVGS.unionpay,
+        pattern: /^62/,
+        numbers: ['6221 2600 0000 0007', '6225 8888 1234 5678', '6282 0000 1122 3344']
+      },
+      rupay: {
+        name: 'RuPay',
+        svg: BRAND_SVGS.rupay,
+        pattern: /^(508|60|65|81|82)/,
+        numbers: ['6070 1234 5678 9012', '6521 5012 3456 7890', '5081 2345 6789 0123']
+      }
+    };
+
+    const RANDOM_NAMES = ['Kavya Iyer', 'Marcus Chen', 'Elena Vance', 'Siddharth Roy', 'Aria Montgomery', 'Zane Gallagher'];
+    const RANDOM_ADDRESSES = [
+      { street: '142 Cyber Way, Suite 8', city: 'Bengaluru', zip: '560001', country: 'India' },
+      { street: '88 Market St, Floor 14', city: 'San Francisco', zip: '94103', country: 'United States' },
+      { street: '24 Silicon Crescent', city: 'London', zip: 'EC1V 1AB', country: 'United Kingdom' },
+      { street: '12-4 Roppongi Hills', city: 'Tokyo', zip: '106-6108', country: 'Japan' }
+    ];
+
+    // State
+    let cart = {};
+    let lastGeneratedKey = '';
+    let advisoryWarningDismissed = false;
+
+    // App Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProducts(PRODUCTS);
+      renderProviderChips();
+      updateCartUI();
+      loadSavedUserData();
+      lucide.createIcons();
+    });
+
+    // Navigation
+    function navigateTo(viewId) {
+      ['welcome', 'catalog', 'checkout', 'success'].forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(`view-${viewId}`);
+      if (target) target.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (viewId === 'checkout') {
+        initCheckoutView();
+      }
+      lucide.createIcons();
+    }
+
+    // Render Catalog
+    function renderProducts(list) {
+      const container = document.getElementById('product-grid');
+      container.innerHTML = list.map(item => `
+        <div class="bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-2xl overflow-hidden flex flex-col group transition-all duration-300">
+          <div class="h-44 relative overflow-hidden bg-slate-950">
+            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+            <span class="absolute top-3 left-3 text-[10px] font-mono uppercase font-bold tracking-wider px-2 py-1 rounded bg-black/70 backdrop-blur-md ${item.type === 'digital' ? 'text-cyan-400 border border-cyan-500/30' : 'text-emerald-400 border border-emerald-500/30'}">
+              ${item.badge}
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">${item.specs}</span>
+              <h3 class="font-bold text-white text-base mt-1 mb-1.5 group-hover:text-cyan-400 transition-colors">${item.name}</h3>
+              <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 mb-4">${item.desc}</p>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
+              <span class="text-lg font-bold font-mono text-white">$${item.price.toFixed(2)}</span>
+              <button onclick="addToCart('${item.id}')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-cyan-500 text-white hover:text-black font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Add</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('bg-cyan-500', 'text-black');
+        btn.classList.add('bg-slate-900', 'text-slate-300');
+      });
+      event.target.classList.add('bg-cyan-500', 'text-black');
+      event.target.classList.remove('bg-slate-900', 'text-slate-300');
+
+      if (cat === 'all') {
+        renderProducts(PRODUCTS);
+      } else {
+        renderProducts(PRODUCTS.filter(p => p.category === cat));
+      }
+    }
+
+    function searchCatalog(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+      renderProducts(filtered);
+    }
+
+    // Cart Management
+    function addToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+      cart[productId] = (cart[productId] || 0) + 1;
+      updateCartUI();
+      showToast(`Added ${product.name} to cart.`);
+    }
+
+    function updateCartUI() {
+      const totalCount = Object.values(cart).reduce((a, b) => a + b, 0);
+      document.getElementById('header-cart-badge').innerText = totalCount;
+
+      let subtotal = 0;
+      const drawerList = document.getElementById('cart-drawer-items');
+      
+      if (totalCount === 0) {
+        drawerList.innerHTML = `
+          <div class="h-64 flex flex-col items-center justify-center text-center text-slate-500">
+            <i data-lucide="shopping-cart" class="w-10 h-10 mb-2 opacity-50"></i>
+            <p class="text-xs font-mono">Your cart is empty.</p>
+          </div>
+        `;
+        document.getElementById('cart-drawer-total').innerText = '$0.00';
+        document.getElementById('cart-checkout-btn').disabled = true;
+        document.getElementById('cart-checkout-btn').classList.add('opacity-50', 'pointer-events-none');
+      } else {
+        document.getElementById('cart-checkout-btn').disabled = false;
+        document.getElementById('cart-checkout-btn').classList.remove('opacity-50', 'pointer-events-none');
+        
+        drawerList.innerHTML = Object.entries(cart).map(([id, qty]) => {
+          const item = PRODUCTS.find(p => p.id === id);
+          if (!item) return '';
+          subtotal += item.price * qty;
+          return `
+            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center gap-3">
+              <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-slate-950 shrink-0">
+              <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-bold text-white truncate">${item.name}</h4>
+                <span class="text-xs font-mono text-cyan-400">$${item.price.toFixed(2)}</span>
+              </div>
+              <div class="flex items-center gap-1.5 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800">
+                <button onclick="changeQty('${id}', -1)" class="text-slate-400 hover:text-white"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+                <span class="text-xs font-mono font-bold text-white w-4 text-center">${qty}</span>
+                <button onclick="changeQty('${id}', 1)" class="text-slate-400 hover:text-white"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button>
+              </div>
+            </div>
+          `;
+        }).join('');
+        document.getElementById('cart-drawer-total').innerText = `$${subtotal.toFixed(2)}`;
+      }
+      lucide.createIcons();
+    }
+
+    function changeQty(productId, delta) {
+      if (!cart[productId]) return;
+      cart[productId] += delta;
+      if (cart[productId] <= 0) {
+        delete cart[productId];
+      }
+      updateCartUI();
+      if (!document.getElementById('view-checkout').classList.contains('hidden')) {
+        initCheckoutView();
+      }
+    }
+
+    function openCart() {
+      document.getElementById('cart-drawer-overlay').classList.remove('hidden');
+      document.getElementById('cart-drawer').classList.remove('translate-x-full');
+    }
+
+    function closeCart() {
+      document.getElementById('cart-drawer-overlay').classList.add('hidden');
+      document.getElementById('cart-drawer').classList.add('translate-x-full');
+    }
+
+    function proceedToCheckout() {
+      closeCart();
+      navigateTo('checkout');
+    }
+
+    // Helper: Determine order type
+    function hasPhysicalProducts() {
+      return Object.keys(cart).some(id => {
+        const item = PRODUCTS.find(p => p.id === id);
+        return item && item.type === 'physical';
+      });
+    }
+
+    function hasDigitalProducts() {
+      return Object.keys(cart).some(id => {
+        const item = PRODUCTS.find(p => p.id === id);
+        return item && item.type === 'digital';
+      });
+    }
+
+    // Checkout Initialization
+    function initCheckoutView() {
+      const itemsList = document.getElementById('checkout-items-list');
+      let subtotal = 0;
+      const isPhysical = hasPhysicalProducts();
+
+      // Adjust UI for Physical vs Digital
+      const addressSection = document.getElementById('physical-address-section');
+      const shippingFeeLabel = document.getElementById('checkout-shipping-fee');
+      const arrivalLabel = document.getElementById('estimated-arrival-date');
+      const deliveryIcon = document.getElementById('delivery-icon');
+
+      if (!isPhysical) {
+        // Digital Only
+        addressSection.classList.add('opacity-40');
+        document.getElementById('shipping-mode-badge').innerText = 'Instant Digital Delivery';
+        shippingFeeLabel.innerText = 'Instant Delivery — $0.00';
+        arrivalLabel.innerText = 'Instant Digital Delivery (Direct Email & Activation)';
+        deliveryIcon.setAttribute('data-lucide', 'zap');
+      } else {
+        // Contains Physical
+        addressSection.classList.remove('opacity-40');
+        document.getElementById('shipping-mode-badge').innerText = 'Free Express Shipping';
+        shippingFeeLabel.innerText = 'Free Express Shipping';
+        
+        // Calculate dynamic delivery date ~ 3 days from now
+        const arrivalDate = new Date();
+        arrivalDate.setDate(arrivalDate.getDate() + 3);
+        const options = { weekday: 'short', month: 'short', day: 'numeric' };
+        arrivalLabel.innerText = `${arrivalDate.toLocaleDateString('en-US', options)} via Free Express Shipping`;
+        deliveryIcon.setAttribute('data-lucide', 'truck');
+      }
+
+      // Render items breakdown
+      itemsList.innerHTML = Object.entries(cart).map(([id, qty]) => {
+        const item = PRODUCTS.find(p => p.id === id);
+        if (!item) return '';
+        const itemTotal = item.price * qty;
+        subtotal += itemTotal;
+        return `
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-cyan-400 font-mono font-bold">${qty}x</span>
+              <span class="text-white truncate max-w-[170px]">${item.name}</span>
+            </div>
+            <span class="font-mono text-slate-300">$${itemTotal.toFixed(2)}</span>
+          </div>
+        `;
+      }).join('');
+
+      const tax = subtotal * 0.08;
+      const total = subtotal + tax;
+
+      document.getElementById('checkout-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('checkout-tax').innerText = `$${tax.toFixed(2)}`;
+      document.getElementById('checkout-total').innerText = `$${total.toFixed(2)}`;
+      lucide.createIcons();
+    }
+
+    // Render Provider Chips
+    function renderProviderChips() {
+      const container = document.getElementById('provider-chips-container');
+      container.innerHTML = Object.entries(PROVIDERS).map(([key, data]) => `
+        <button type="button" onclick="selectProviderMockCard('${key}')" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900 text-xs font-mono text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <span class="w-4 h-3 flex items-center justify-center shrink-0">${data.svg}</span>
+          <span>${data.name}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectProviderMockCard(providerKey) {
+      const provider = PROVIDERS[providerKey];
+      if (!provider) return;
+      const randomCard = provider.numbers[Math.floor(Math.random() * provider.numbers.length)];
+      
+      const cardInput = document.getElementById('input-cardnumber');
+      cardInput.value = randomCard;
+      handleCardInput(cardInput);
+      
+      if (!document.getElementById('input-expiry').value) {
+        document.getElementById('input-expiry').value = '10/28';
+      }
+      if (!document.getElementById('input-cvv').value) {
+        document.getElementById('input-cvv').value = '742';
+      }
+      showToast(`Loaded ${provider.name} test card.`);
+    }
+
+    // Fill All Mock Data (Random)
+    function fillAllMockData() {
+      const providerKeys = Object.keys(PROVIDERS);
+      const randomProviderKey = providerKeys[Math.floor(Math.random() * providerKeys.length)];
+      const provider = PROVIDERS[randomProviderKey];
+      const randomCard = provider.numbers[Math.floor(Math.random() * provider.numbers.length)];
+
+      const cardInput = document.getElementById('input-cardnumber');
+      cardInput.value = randomCard;
+      handleCardInput(cardInput);
+
+      const randomName = RANDOM_NAMES[Math.floor(Math.random() * RANDOM_NAMES.length)];
+      const randomAddress = RANDOM_ADDRESSES[Math.floor(Math.random() * RANDOM_ADDRESSES.length)];
+
+      document.getElementById('input-name').value = randomName;
+      document.getElementById('input-cardholder').value = randomName;
+      document.getElementById('input-address').value = randomAddress.street;
+      document.getElementById('input-city').value = randomAddress.city;
+      document.getElementById('input-zip').value = randomAddress.zip;
+      document.getElementById('input-country').value = randomAddress.country;
+
+      document.getElementById('input-expiry').value = '08/29';
+      document.getElementById('input-cvv').value = '824';
+
+      showToast(`Generated complete test profile with ${provider.name}.`);
+    }
+
+    // Card Input Handler
+    function handleCardInput(el) {
+      let raw = el.value.replace(/\D/g, '');
+      if (raw.length > 19) raw = raw.slice(0, 19);
+
+      // Format with spaces
+      let formatted = raw.match(/.{1,4}/g)?.join(' ') || raw;
+      el.value = formatted;
+
+      // Detect Brand
+      let detectedKey = null;
+      for (const [key, p] of Object.entries(PROVIDERS)) {
+        if (p.pattern.test(raw)) {
+          detectedKey = key;
+          break;
+        }
+      }
+
+      const brandPill = document.getElementById('detected-brand-pill');
+      const brandSvg = document.getElementById('detected-brand-svg');
+      const brandName = document.getElementById('detected-brand-name');
+      const inputIcon = document.getElementById('input-brand-icon');
+
+      if (detectedKey && raw.length > 0) {
+        const prov = PROVIDERS[detectedKey];
+        brandPill.classList.remove('hidden');
+        brandPill.classList.add('flex');
+        brandSvg.innerHTML = prov.svg;
+        brandName.innerText = prov.name;
+        inputIcon.innerHTML = `<span class="w-6 h-4 flex">${prov.svg}</span>`;
+      } else {
+        brandPill.classList.add('hidden');
+        brandPill.classList.remove('flex');
+        inputIcon.innerHTML = '';
+      }
+
+      // Trigger MITM Security Advisory Modal if a standard length card is being entered and not dismissed
+      if (raw.length >= 15 && !advisoryWarningDismissed) {
+        showAdvisoryModal();
+      }
+    }
+
+    function formatExpiry(el) {
+      let v = el.value.replace(/\D/g, '');
+      if (v.length > 2) {
+        v = v.slice(0, 2) + '/' + v.slice(2, 4);
+      }
+      el.value = v;
+    }
+
+    function showAdvisoryModal() {
+      document.getElementById('advisory-modal').classList.remove('hidden');
+      document.getElementById('advisory-cancel-btn').onclick = () => {
+        document.getElementById('input-cardnumber').value = '';
+        handleCardInput(document.getElementById('input-cardnumber'));
+        document.getElementById('advisory-modal').classList.add('hidden');
+      };
+      document.getElementById('advisory-continue-btn').onclick = () => {
+        advisoryWarningDismissed = true;
+        document.getElementById('advisory-modal').classList.add('hidden');
+      };
+      lucide.createIcons();
+    }
+
+    // Generate 18-digit key (Format: XXXX-XXXX-XXXX-XXXX-XX)
+    function generate18DigitKey() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let result = '';
+      for (let i = 0; i < 18; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return `${result.slice(0,4)}-${result.slice(4,8)}-${result.slice(8,12)}-${result.slice(12,16)}-${result.slice(16,18)}`;
+    }
+
+    // Process Order
+    function processOrder() {
+      const cardRaw = document.getElementById('input-cardnumber').value.replace(/\D/g, '');
+      const cardError = document.getElementById('card-error');
+
+      // Simple length check: 13 to 19 digits (Luhn completely removed)
+      if (cardRaw.length < 13 || cardRaw.length > 19) {
+        cardError.innerText = 'Please enter a card number between 13 and 19 digits.';
+        cardError.classList.remove('hidden');
+        return;
+      }
+      cardError.classList.add('hidden');
+
+      // Check if saving to localStorage
+      if (document.getElementById('check-save-data').checked) {
+        saveUserData();
+      }
+
+      // Show processing spinner
+      const overlay = document.getElementById('processing-overlay');
+      const stepText = document.getElementById('processing-step-text');
+      overlay.classList.remove('hidden');
+
+      setTimeout(() => {
+        stepText.innerText = 'Authorizing card tokenization...';
+      }, 700);
+
+      setTimeout(() => {
+        stepText.innerText = 'Securing license activation & fulfillment routes...';
+      }, 1400);
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        renderSuccessView();
+      }, 2100);
+    }
+
+    function renderSuccessView() {
+      const isPhysical = hasPhysicalProducts();
+      const isDigital = hasDigitalProducts();
+      const cardRaw = document.getElementById('input-cardnumber').value.replace(/\D/g, '');
+      const last4 = cardRaw.slice(-4) || '4242';
+
+      document.getElementById('receipt-order-id').innerText = `TEXX-${Math.floor(100000 + Math.random() * 900000)}`;
+      document.getElementById('receipt-total').innerText = document.getElementById('checkout-total').innerText;
+      document.getElementById('receipt-card-brand').innerText = `Card ending in •••• ${last4}`;
+
+      const licenseBox = document.getElementById('receipt-license-box');
+      const fulfillmentModeLabel = document.getElementById('receipt-fulfillment-mode');
+      const buttonsContainer = document.getElementById('success-buttons-container');
+
+      if (isDigital) {
+        lastGeneratedKey = generate18DigitKey();
+        document.getElementById('license-key-text').innerText = lastGeneratedKey;
+        licenseBox.classList.remove('hidden');
+        fulfillmentModeLabel.innerText = isPhysical ? 'Hybrid (Physical + Instant Digital)' : 'Instant Digital Delivery';
+
+        // Digital Layout Buttons:
+        // 1. Large Download License Key button
+        // 2. Medium Download Receipt button
+        // 3. Plain text Continue Shopping button
+        buttonsContainer.innerHTML = `
+          <button onclick="downloadLicenseKeyFile()" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-black font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-cyan-500/10 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="key" class="w-4 h-4"></i>
+            <span>Download License Key</span>
+          </button>
+          <button onclick="downloadReceiptFile(false)" class="w-full py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>Download Receipt</span>
+          </button>
+          <div class="pt-2">
+            <button onclick="continueShopping()" class="text-xs font-mono text-slate-400 hover:text-cyan-400 underline decoration-slate-700 hover:decoration-cyan-400 transition-colors">
+              Continue Shopping
+            </button>
+          </div>
+        `;
+      } else {
+        // Physical Only Layout Buttons:
+        // 1. Large Download Receipt button
+        // 2. Plain text Continue Shopping button
+        licenseBox.classList.add('hidden');
+        fulfillmentModeLabel.innerText = 'Free Express Shipping';
+
+        buttonsContainer.innerHTML = `
+          <button onclick="downloadReceiptFile(false)" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-black font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-cyan-500/10 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4"></i>
+            <span>Download Receipt</span>
+          </button>
+          <div class="pt-2">
+            <button onclick="continueShopping()" class="text-xs font-mono text-slate-400 hover:text-cyan-400 underline decoration-slate-700 hover:decoration-cyan-400 transition-colors">
+              Continue Shopping
+            </button>
+          </div>
+        `;
+      }
+
+      navigateTo('success');
+      // Reset cart
+      cart = {};
+      updateCartUI();
+      lucide.createIcons();
+    }
+
+    function continueShopping() {
+      navigateTo('catalog');
+    }
+
+    function copyLicenseKey() {
+      if (!lastGeneratedKey) return;
+      navigator.clipboard.writeText(lastGeneratedKey);
+      showToast('License Key copied to clipboard!');
+    }
+
+    // File Downloads
+    function downloadLicenseKeyFile() {
+      const orderId = document.getElementById('receipt-order-id').innerText;
+      const content = `========================================
+TEXX LABS INC // PRODUCT LICENSE KEY
+========================================
+Order Reference : ${orderId}
+Issued To       : ${document.getElementById('input-name').value || 'Authorized User'}
+Timestamp       : ${new Date().toISOString()}
+
+ACTIVATION KEY  : ${lastGeneratedKey}
+
+Instructions:
+Enter this 18-character key inside your TEXX product 
+activation panel or command-line license utility.
+========================================`;
+
+      triggerDownload(content, `${orderId}-LICENSE-KEY.txt`);
+    }
+
+    function downloadReceiptFile(includeLicense = false) {
+      const orderId = document.getElementById('receipt-order-id').innerText;
+      const total = document.getElementById('receipt-total').innerText;
+      const card = document.getElementById('receipt-card-brand').innerText;
+      const mode = document.getElementById('receipt-fulfillment-mode').innerText;
+
+      const content = `========================================
+TEXX LABS INC // OFFICIAL RECEIPT
+========================================
+Order Reference : ${orderId}
+Date            : ${new Date().toLocaleDateString()}
+Fulfillment     : ${mode}
+Payment Method  : ${card}
+Total Amount    : ${total}
+
+Status          : PAID (SIMULATED PROTOTYPE)
+
+Thank you for engineering your system with TEXX Labs.
+========================================`;
+
+      triggerDownload(content, `${orderId}-RECEIPT.txt`);
+    }
+
+    function triggerDownload(text, filename) {
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    // LocalStorage Cache
+    function saveUserData() {
+      const data = {
+        name: document.getElementById('input-name').value,
+        address: document.getElementById('input-address').value,
+        city: document.getElementById('input-city').value,
+        zip: document.getElementById('input-zip').value,
+        country: document.getElementById('input-country').value,
+        cardholder: document.getElementById('input-cardholder').value,
+        cardnumber: document.getElementById('input-cardnumber').value,
+        expiry: document.getElementById('input-expiry').value
+      };
+      localStorage.setItem('texx_user_checkout_cache', JSON.stringify(data));
+      showToast('Sandbox details saved to browser storage.');
+    }
+
+    function loadSavedUserData() {
+      const raw = localStorage.getItem('texx_user_checkout_cache');
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        if (data.name) document.getElementById('input-name').value = data.name;
+        if (data.address) document.getElementById('input-address').value = data.address;
+        if (data.city) document.getElementById('input-city').value = data.city;
+        if (data.zip) document.getElementById('input-zip').value = data.zip;
+        if (data.country) document.getElementById('input-country').value = data.country;
+        if (data.cardholder) document.getElementById('input-cardholder').value = data.cardholder;
+        if (data.cardnumber) {
+          const cInput = document.getElementById('input-cardnumber');
+          cInput.value = data.cardnumber;
+          handleCardInput(cInput);
+        }
+        if (data.expiry) document.getElementById('input-expiry').value = data.expiry;
+        document.getElementById('check-save-data').checked = true;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Toast Helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-150%]', 'opacity-0');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
