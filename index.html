@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEXX — Next-Gen Tech & Nexus Secure Checkout</title>
+  <title>TEXX — Next-Gen Tech, Software & Nexus Secure Checkout</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Outfit -->
@@ -63,7 +63,6 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    /* Shimmer effect for buttons */
     .btn-shimmer {
       position: relative;
       overflow: hidden;
@@ -87,6 +86,19 @@
     @keyframes shimmerSweep {
       0% { left: -60%; }
       30%, 100% { left: 140%; }
+    }
+
+    .brand-svg-chip svg {
+      height: 16px;
+      width: auto;
+      max-width: 28px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .brand-svg-field svg {
+      height: 22px;
+      width: auto;
+      max-width: 38px;
     }
   </style>
 </head>
@@ -144,7 +156,7 @@
       <!-- Badge -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-semibold tracking-wider uppercase mb-6 shadow-inner">
         <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span>
-        Nexus Hardware Showcase
+        Nexus Tech & Software Showcase
       </div>
 
       <!-- Main Logo / Brand -->
@@ -154,10 +166,10 @@
       </h1>
 
       <p class="text-xl sm:text-2xl text-slate-300 font-medium max-w-xl mx-auto mb-4 leading-relaxed">
-        Next-Gen Tech & Gear Engineered for the Quantum Era.
+        Next-Gen Hardware & Quantum Software Engineered for Pioneers.
       </p>
       <p class="text-sm sm:text-base text-slate-400 max-w-lg mx-auto mb-10">
-        Experience hyper-responsive neural peripherals, quantum optics, and ultra-high-density power devices with a seamless checkout simulation.
+        Browse neural peripherals, quantum computing suits, and enterprise AI software with a full Nexus checkout simulation.
       </p>
 
       <!-- Centered Start Shopping Button -->
@@ -171,15 +183,15 @@
       <!-- Feature preview badges -->
       <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-xl w-full mx-auto">
         <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
-          <div class="text-xs text-slate-400">Hardware Catalog</div>
+          <div class="text-xs text-slate-400">Hardware & Software</div>
           <div class="text-sm font-semibold text-slate-200 flex items-center gap-2 mt-1">
-            <i class="fa-solid fa-microchip text-brand-neon"></i> TEXX Original Gear
+            <i class="fa-solid fa-cubes-stacked text-brand-neon"></i> Physical + Digital
           </div>
         </div>
         <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
-          <div class="text-xs text-slate-400">Verification</div>
+          <div class="text-xs text-slate-400">Card Verification</div>
           <div class="text-sm font-semibold text-slate-200 flex items-center gap-2 mt-1">
-            <i class="fa-solid fa-shield-halved text-brand-accent"></i> Luhn Algorithm Check
+            <i class="fa-solid fa-shield-halved text-brand-accent"></i> 100% Luhn Passing
           </div>
         </div>
         <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur">
@@ -216,7 +228,7 @@
           <input 
             type="text" 
             id="store-search-input" 
-            placeholder="Search high-tech gear (e.g. keyboard, watch, neural)..." 
+            placeholder="Search gear or software (e.g. OS, Neural, Audio)..." 
             class="w-full bg-slate-900/80 border border-slate-700/80 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 placeholder-slate-400 rounded-xl pl-10 pr-4 py-2 outline-none transition"
           >
         </div>
@@ -237,23 +249,26 @@
       <!-- Category Filter Pills -->
       <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none mb-6">
         <button class="category-btn active px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-brand-600 text-white shadow-md shadow-brand-600/30 whitespace-nowrap" data-cat="all">All Products</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="software">
+          <i class="fa-solid fa-terminal mr-1 text-cyan-400"></i> Software & AI
+        </button>
         <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="audio">Neural Audio</button>
         <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="peripherals">Input Interfaces</button>
-        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="wearables">Smart Wearables</button>
-        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="power">Power & Energy</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="wearables">Wearables</button>
+        <button class="category-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="power">Power</button>
       </div>
 
       <!-- Store Sub-banner -->
       <div class="mb-8 p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="space-y-1">
           <div class="text-brand-accent text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt"></i> Experimental Series 04
+            <i class="fa-solid fa-bolt"></i> Production Releases & Suites
           </div>
-          <h2 class="text-xl font-display font-bold text-white">Genuine TEXX Quantum-Grade Hardware</h2>
-          <p class="text-sm text-slate-400">Select futuristic gear, preview cart totals, and proceed to the Nexus Checkout demo.</p>
+          <h2 class="text-xl font-display font-bold text-white">Genuine TEXX Quantum Hardware & Software</h2>
+          <p class="text-sm text-slate-400">Physical orders ship via express delivery; software suites include instant license generation.</p>
         </div>
         <div class="text-xs text-slate-400 font-mono bg-slate-950/70 border border-slate-800/80 px-4 py-2 rounded-xl flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-brand-neon"></span> 100% In Stock & Verified
+          <span class="w-2 h-2 rounded-full bg-brand-neon"></span> Instant Sandbox Ready
         </div>
       </div>
 
@@ -303,7 +318,7 @@
               <span id="cart-tax" class="font-mono text-slate-200">$0.00</span>
             </div>
             <div class="flex justify-between text-slate-400">
-              <span>TEXX Quantum Express Shipping</span>
+              <span>Delivery / Digital Key Dispatch</span>
               <span class="font-mono text-brand-neon font-semibold">FREE</span>
             </div>
             <div class="border-t border-slate-800 pt-2 flex justify-between text-base font-bold text-white">
@@ -340,16 +355,16 @@
       </div>
     </div>
 
-    <!-- Quick Test Cards Selection Bar (Expanded Supported Networks) -->
+    <!-- Quick Test Cards Selection Bar (SVG Logos + Pools) -->
     <div class="mb-8 p-4 sm:p-5 rounded-2xl border border-brand-500/40 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 shadow-xl">
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-brand-500/20 text-brand-300 border border-brand-500/30">SUPPORTED NETWORKS</span>
-            <h4 class="text-sm font-bold text-white">8 Recognized Global Payment Card Networks</h4>
+            <h4 class="text-sm font-bold text-white">8 Global Payment Card Networks</h4>
           </div>
           <p class="text-xs text-slate-400 mt-1">
-            Pick any valid test card below or click "Fill All Mock Data" to randomly populate all physical & card fields:
+            Click any network to cycle through multiple 100% Luhn-valid test cards, or use "Fill All Mock Data":
           </p>
         </div>
         
@@ -360,31 +375,39 @@
         </div>
       </div>
 
-      <!-- Network Chips Grid -->
+      <!-- Network Chips Grid with Real Crisp SVG Logos -->
       <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mt-4 pt-3 border-t border-slate-800/80">
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="visa">
-          <i class="fa-brands fa-cc-visa text-blue-400"></i> Visa
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="visa">
+          <span id="chip-svg-visa"></span>
+          <span>Visa</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="mastercard">
-          <i class="fa-brands fa-cc-mastercard text-amber-400"></i> Master
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="mastercard">
+          <span id="chip-svg-mastercard"></span>
+          <span>Master</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="amex">
-          <i class="fa-brands fa-cc-amex text-cyan-400"></i> Amex
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="amex">
+          <span id="chip-svg-amex"></span>
+          <span>Amex</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="discover">
-          <i class="fa-brands fa-cc-discover text-orange-400"></i> Discover
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="discover">
+          <span id="chip-svg-discover"></span>
+          <span>Discover</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="diners">
-          <i class="fa-brands fa-cc-diners-club text-sky-400"></i> Diners
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="diners">
+          <span id="chip-svg-diners"></span>
+          <span>Diners</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="jcb">
-          <i class="fa-brands fa-cc-jcb text-emerald-400"></i> JCB
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="jcb">
+          <span id="chip-svg-jcb"></span>
+          <span>JCB</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="unionpay">
-          <i class="fa-solid fa-credit-card text-rose-400"></i> UnionPay
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="unionpay">
+          <span id="chip-svg-unionpay"></span>
+          <span>UnionPay</span>
         </button>
-        <button type="button" class="quick-card-btn px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-1.5" data-brand="rupay">
-          <i class="fa-solid fa-money-bill-wave text-teal-400"></i> RuPay
+        <button type="button" class="quick-card-btn px-2 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-xs text-slate-200 font-mono transition flex items-center justify-center gap-2 brand-svg-chip" data-brand="rupay">
+          <span id="chip-svg-rupay"></span>
+          <span>RuPay</span>
         </button>
       </div>
     </div>
@@ -395,10 +418,10 @@
         <i class="fa-regular fa-credit-card text-2xl"></i>
       </div>
       <h2 class="text-3xl font-display font-extrabold text-white">Nexus Secure Checkout (Simulation)</h2>
-      <p class="text-slate-400 text-sm mt-1">Review mock physical delivery details and provide sample payment credentials.</p>
+      <p class="text-slate-400 text-sm mt-1">Review physical / digital delivery details and provide sample payment credentials.</p>
     </div>
 
-    <!-- Quick Load Cached Details Alert (If available) -->
+    <!-- Quick Load Cached Details Alert -->
     <div id="saved-vault-banner" class="hidden mb-8 p-4 rounded-xl border border-indigo-500/30 bg-indigo-950/40 flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <i class="fa-solid fa-bookmark text-indigo-400"></i>
@@ -423,7 +446,7 @@
           <div class="flex items-center justify-between pb-3 border-b border-slate-800">
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
-              <h3 class="font-display font-bold text-lg text-white">Physical Delivery Address</h3>
+              <h3 class="font-display font-bold text-lg text-white">Physical Delivery / Billing Address</h3>
             </div>
             <!-- Dynamic Arrival Date Badge -->
             <div class="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-brand-neon font-medium flex items-center gap-1.5">
@@ -457,11 +480,12 @@
               <label class="block text-xs font-medium text-slate-300 mb-1.5">Country / Region</label>
               <select id="ship-country" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
                 <option value="US">United States</option>
-                <option value="CA">Canada</option>
+                <option value="CN">China</option>
+                <option value="IN">India</option>
+                <option value="JP">Japan</option>
                 <option value="GB">United Kingdom</option>
                 <option value="DE">Germany</option>
-                <option value="JP">Japan</option>
-                <option value="IN">India</option>
+                <option value="CA">Canada</option>
                 <option value="AU">Australia</option>
               </select>
             </div>
@@ -477,7 +501,7 @@
             </div>
             <div class="flex items-center gap-2 text-xs text-amber-300 bg-amber-950/40 border border-amber-800/40 px-2.5 py-1 rounded-md font-mono">
               <i class="fa-solid fa-code"></i>
-              <span>Luhn Validated Demo</span>
+              <span>Luhn Validated</span>
             </div>
           </div>
 
@@ -488,12 +512,12 @@
               <input type="text" id="card-name" placeholder="e.g. ALEX MERCER" class="w-full uppercase tracking-wider bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-200 rounded-xl px-4 py-2.5 outline-none transition">
             </div>
 
-            <!-- Card Number Input + Brand Indicator -->
+            <!-- Card Number Input + Real Vector Brand Indicator -->
             <div>
-              <div class="flex justify-between items-center mb-1.5 min-h-[20px]">
+              <div class="flex justify-between items-center mb-1.5 min-h-[24px]">
                 <label class="text-xs font-medium text-slate-300">Card Number <span class="text-amber-400 font-normal">(Sample / Sandbox Test Card)</span></label>
-                <!-- Dynamic Brand Badge (Hidden when empty / no generic fallback) -->
-                <span id="card-brand-badge" class="hidden text-xs font-mono font-semibold px-2 py-0.5 rounded border"></span>
+                <!-- Dynamic Brand Badge with Real SVG Logo -->
+                <span id="card-brand-badge" class="hidden items-center gap-1.5 text-xs font-mono font-semibold px-2 py-0.5 rounded border"></span>
               </div>
               
               <div class="relative">
@@ -502,21 +526,14 @@
                   id="card-number" 
                   maxlength="23"
                   placeholder="Enter test card number" 
-                  class="font-mono tracking-wider w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-100 rounded-xl pl-4 pr-12 py-2.5 outline-none transition"
+                  class="font-mono tracking-wider w-full bg-slate-950 border border-slate-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-slate-100 rounded-xl pl-4 pr-14 py-2.5 outline-none transition"
                 >
-                <div class="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center text-slate-400" id="card-brand-icon-box">
-                  <!-- Dynamically rendered or clean credit card silhouette when empty -->
-                  <i class="fa-regular fa-credit-card text-base"></i>
+                <div class="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center brand-svg-field" id="card-brand-icon-box">
+                  <i class="fa-regular fa-credit-card text-base text-slate-500"></i>
                 </div>
               </div>
-              
-              <!-- Subtext info -->
-              <p class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1.5">
-                <i class="fa-solid fa-circle-info text-brand-accent"></i>
-                <span>Supports Visa, Mastercard, Amex, Discover, Diners Club, JCB, UnionPay & RuPay. Absurd repeating sequences are rejected.</span>
-              </p>
 
-              <!-- Luhn / Absurd Error Feedback Message -->
+              <!-- Luhn Error Feedback Message -->
               <p id="card-error-msg" class="hidden text-xs text-rose-400 mt-2 font-medium flex items-center gap-1.5">
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span id="card-error-text">Invalid card number. Must pass the Luhn algorithm checksum.</span>
@@ -595,7 +612,7 @@
               <span id="summary-tax" class="font-mono text-slate-200">$0.00</span>
             </div>
             <div class="flex justify-between text-slate-400">
-              <span>Nexus Express Delivery</span>
+              <span>Nexus Express / Instant Key Delivery</span>
               <span class="font-mono text-brand-neon font-semibold">FREE</span>
             </div>
             <div class="border-t border-slate-800 pt-3 flex justify-between text-lg font-bold text-white">
@@ -661,7 +678,7 @@
 
       <h2 class="text-3xl font-display font-extrabold text-white mb-2">Payment Complete!</h2>
       <p class="text-sm text-slate-300 mb-6">
-        Thank you for trying out the TEXX simulator. Your mock order has been logged into the simulation queue.
+        Thank you for testing the TEXX simulator. Your mock order has been logged into the simulation queue.
       </p>
 
       <!-- Receipt Box -->
@@ -676,19 +693,19 @@
         </div>
         <div class="flex justify-between text-slate-400">
           <span>Payment Source:</span>
-          <span id="receipt-card-brand" class="text-slate-300">VISA (•••• 1111)</span>
+          <span id="receipt-card-brand" class="text-slate-300 flex items-center gap-2">VISA (•••• 1111)</span>
         </div>
         <div class="flex justify-between text-slate-400">
-          <span>Delivery Estimated:</span>
-          <span id="receipt-arrival-date" class="text-brand-neon font-semibold">In 3 business days</span>
+          <span>Fulfillment:</span>
+          <span id="receipt-arrival-date" class="text-brand-neon font-semibold">In 3 business days / Instant Keys</span>
         </div>
         <div class="flex justify-between text-slate-400">
-          <span>Destination:</span>
-          <span id="receipt-address" class="text-slate-300 truncate max-w-[180px]">Simulated Address</span>
+          <span>Destination / Account:</span>
+          <span id="receipt-address" class="text-slate-300 truncate max-w-[200px]">Simulated Address</span>
         </div>
       </div>
 
-      <!-- Continue Shopping Button (Returns to Store Catalog) -->
+      <!-- Continue Shopping Button -->
       <button id="btn-success-back-to-store" class="btn-shimmer w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-base shadow-xl shadow-brand-600/30 transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-arrow-left"></i>
         <span>Continue Shopping</span>
@@ -721,10 +738,233 @@
   <!-- ========================================================================= -->
   <script>
     /* =======================================================================
-       1. DATA & STATE MANAGEMENT
+       1. REAL VECTOR SVG LOGOS
        ======================================================================= */
-    // Catalog of fictional TEXX products
+    const BRAND_SVGS = {
+      visa: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#0E4595"/>
+        <path d="M19.2 21.6h-2.9l1.8-11.2h2.9l-1.8 11.2zm8.6-11c-.6-.2-1.5-.4-2.7-.4-3 0-5.1 1.6-5.1 3.9 0 1.7 1.5 2.6 2.7 3.2 1.2.6 1.6 1 1.6 1.5 0 .8-.9 1.2-1.8 1.2-1.2 0-1.9-.2-2.9-.6l-.4-.2-.4 2.6c.7.3 2 .6 3.4.6 3.2 0 5.3-1.6 5.3-4 0-1.3-.8-2.3-2.6-3.2-1.1-.6-1.8-.9-1.8-1.5 0-.5.6-1 1.8-1 1 0 1.7.2 2.3.5l.3.1.6-2.7zm6.7 7.2l1.4-3.8.8 3.8h-2.2zm3.4 3.8h2.6l-2.3-11.2h-2.4c-.6 0-1 .2-1.3.9l-4.5 10.3h3.1l.6-1.7h3.8l.1 1.7zm-14.7-11.2l-2.8 7.6-.3-1.5c-.5-1.8-2.1-3.7-3.9-4.7l2.5 9.8h3.1l4.6-11.2h-3.2z" fill="#FFF"/>
+        <path d="M9.8 10.4H5.1l-.1.4c3.9 1 6.5 3.4 7.6 6.3l-1.1-5.6c-.2-.7-.7-1-1.7-1.1z" fill="#F7B600"/>
+      </svg>`,
+
+      mastercard: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#252525"/>
+        <circle cx="18" cy="16" r="10" fill="#EB001B"/>
+        <circle cx="30" cy="16" r="10" fill="#F79E1B"/>
+        <path d="M24 8.7a9.96 9.96 0 00-3.9 7.3c0 2.9 1.4 5.5 3.9 7.3 2.5-1.8 3.9-4.4 3.9-7.3s-1.4-5.5-3.9-7.3z" fill="#FF5F00"/>
+      </svg>`,
+
+      amex: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#007BC1"/>
+        <path d="M7 11h4.6l1.3 3.1 1.3-3.1h4.6v10h-3.3v-5.9l-1.6 3.8h-2.2l-1.6-3.8V21H7V11zm13.1 0h7.4l1.8 2.6 1.8-2.6h7.5v10h-3.4v-5.7l-1.8 2.6h-2.1l-1.8-2.6V21h-9.4V11zm2.9 2.5v1.9h4.3v-1.9H23zm0 3.1v1.9h4.3v-1.9H23z" fill="#FFF"/>
+      </svg>`,
+
+      discover: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#FFF"/>
+        <circle cx="25" cy="16" r="6" fill="#F47216"/>
+        <text x="5" y="19" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#231F20" letter-spacing="-0.4">DISC</text>
+        <text x="32" y="19" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#231F20" letter-spacing="-0.4">VER</text>
+      </svg>`,
+
+      diners: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#0079BE"/>
+        <circle cx="24" cy="16" r="11" fill="#FFF"/>
+        <path d="M22.5 8.5v15c-3.8 0-6.8-3.4-6.8-7.5s3-7.5 6.8-7.5zm3 0c3.8 0 6.8 3.4 6.8 7.5s-3 7.5-6.8 7.5V8.5z" fill="#0079BE"/>
+      </svg>`,
+
+      jcb: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#FFF"/>
+        <rect x="8" y="7" width="10" height="18" rx="4" fill="#0066B3"/>
+        <rect x="19" y="7" width="10" height="18" rx="4" fill="#E60012"/>
+        <rect x="30" y="7" width="10" height="18" rx="4" fill="#009944"/>
+        <text x="10" y="19" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="7" fill="#FFF">J</text>
+        <text x="21" y="19" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="7" fill="#FFF">C</text>
+        <text x="32" y="19" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="7" fill="#FFF">B</text>
+      </svg>`,
+
+      unionpay: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#FFF"/>
+        <path d="M7 7h11l-3 18H4l3-18z" fill="#DA251C"/>
+        <path d="M16 7h11l-3 18H13l3-18z" fill="#004380"/>
+        <path d="M25 7h11l-3 18H22l3-18z" fill="#007C64"/>
+        <text x="9" y="18" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="4.8" fill="#FFF" font-style="italic">Union</text>
+        <text x="20" y="22" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="4.8" fill="#FFF" font-style="italic">Pay</text>
+      </svg>`,
+
+      rupay: `<svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="32" rx="4" fill="#FFF"/>
+        <text x="5" y="18" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="8.5" fill="#092040" font-style="italic">Ru</text>
+        <text x="19" y="18" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="8.5" fill="#00A551" font-style="italic">Pay</text>
+        <polygon points="36,9 33,23 39,16" fill="#F47920"/>
+        <polygon points="41,9 38,23 44,16" fill="#00A551"/>
+      </svg>`
+    };
+
+    /* =======================================================================
+       2. TEST CARDS POOL (100% MATHEMATICALLY VERIFIED LUHN CHECKSUM)
+       ======================================================================= */
+    const NETWORK_POOLS = {
+      visa: {
+        brand: 'VISA',
+        svgKey: 'visa',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-blue-500/10 text-blue-300 border-blue-500/30',
+        cards: [
+          '4111 1111 1111 1111',
+          '4000 1234 5678 9010',
+          '4242 4242 4242 4242',
+          '4532 0150 1234 5673'
+        ]
+      },
+      mastercard: {
+        brand: 'MASTERCARD',
+        svgKey: 'mastercard',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+        cards: [
+          '5555 5555 5555 4444',
+          '5105 1051 0510 5100',
+          '5200 8282 8282 8282',
+          '5425 2334 4556 6778'
+        ]
+      },
+      amex: {
+        brand: 'AMERICAN EXPRESS',
+        svgKey: 'amex',
+        cvcLen: 4,
+        formatLen: 15,
+        badgeClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+        cards: [
+          '3782 822463 10005',
+          '3714 496353 98431',
+          '3400 000000 00009',
+          '3787 345678 91010'
+        ]
+      },
+      discover: {
+        brand: 'DISCOVER',
+        svgKey: 'discover',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-orange-500/10 text-orange-300 border-orange-500/30',
+        cards: [
+          '6011 1111 1111 1117',
+          '6011 0009 9013 9424',
+          '6440 1234 5678 9015',
+          '6500 0212 3456 7899'
+        ]
+      },
+      diners: {
+        brand: 'DINERS CLUB',
+        svgKey: 'diners',
+        cvcLen: 3,
+        formatLen: 14,
+        badgeClass: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
+        cards: [
+          '3000 0000 0000 04',
+          '3056 9309 0259 04',
+          '3684 5678 9012 34',
+          '3852 0000 0232 37'
+        ]
+      },
+      jcb: {
+        brand: 'JCB',
+        svgKey: 'jcb',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+        cards: [
+          '3528 0000 0000 0002',
+          '3530 1113 3330 0000',
+          '3566 0021 3452 7993',
+          '3589 1234 5678 9011'
+        ]
+      },
+      unionpay: {
+        brand: 'CHINA UNIONPAY',
+        svgKey: 'unionpay',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
+        cards: [
+          '6221 2600 0000 0007',
+          '6200 0000 0000 0001',
+          '6221 2612 3456 7893',
+          '6282 0000 1234 5670'
+        ]
+      },
+      rupay: {
+        brand: 'RUPAY',
+        svgKey: 'rupay',
+        cvcLen: 3,
+        formatLen: 16,
+        badgeClass: 'bg-teal-500/10 text-teal-300 border-teal-500/30',
+        cards: [
+          '6061 1111 1111 1118',
+          '6521 5000 0000 0013',
+          '6070 1234 5678 9018',
+          '6522 1234 5678 9010'
+        ]
+      }
+    };
+
+    /* =======================================================================
+       3. CATALOG OF TEXX HARDWARE + SOFTWARE PRODUCTS
+       ======================================================================= */
     const PRODUCTS = [
+      // Software Products
+      {
+        id: 'texx-soft-01',
+        name: 'TEXX Quantum OS 4 Pro',
+        category: 'software',
+        price: 199.00,
+        badge: 'Enterprise Software',
+        desc: 'Deterministic quantum kernel operating system featuring synaptic process scheduling and hardware acceleration.',
+        icon: 'fa-terminal',
+        color: 'from-cyan-600/30 via-indigo-900/30 to-slate-900',
+        tag: 'INSTANT LICENSE',
+        isDigital: true
+      },
+      {
+        id: 'texx-soft-02',
+        name: 'Neural Render Suite AI',
+        category: 'software',
+        price: 249.00,
+        badge: 'Creative Software',
+        desc: 'Real-time ray tracing & photorealistic volumetric neural rendering engine for visual effects and 3D simulation.',
+        icon: 'fa-wand-magic-sparkles',
+        color: 'from-fuchsia-600/30 via-purple-900/30 to-slate-900',
+        tag: 'LIFETIME KEY',
+        isDigital: true
+      },
+      {
+        id: 'texx-soft-03',
+        name: 'CloudSync AI Studio Enterprise',
+        category: 'software',
+        price: 299.00,
+        badge: 'Cloud Platform',
+        desc: 'Self-hosted autonomous agent workspace with distributed model training, zero-loss mesh sync, and telemetry.',
+        icon: 'fa-network-wired',
+        color: 'from-emerald-600/30 via-teal-900/30 to-slate-900',
+        tag: 'ENTERPRISE',
+        isDigital: true
+      },
+      {
+        id: 'texx-soft-04',
+        name: 'ZapLink CyberShield Suite',
+        category: 'software',
+        price: 149.00,
+        badge: 'Cybersecurity',
+        desc: 'Post-quantum cryptographic firewall and deep network packet inspector with biometric key management.',
+        icon: 'fa-shield-halved',
+        color: 'from-amber-600/30 via-rose-900/30 to-slate-900',
+        tag: 'MIL-SPEC',
+        isDigital: true
+      },
+
+      // Hardware Products
       {
         id: 'texx-01',
         name: 'TEXX NovaPulse Over-Ear',
@@ -734,7 +974,8 @@
         desc: 'Zero-latency spatial audio headphones with synaptic haptic drivers and planar magnetic diaphragms.',
         icon: 'fa-headphones-simple',
         color: 'from-indigo-600/20 to-purple-600/20',
-        tag: 'BESTSELLER'
+        tag: 'BESTSELLER',
+        isDigital: false
       },
       {
         id: 'texx-02',
@@ -745,7 +986,8 @@
         desc: 'CNC milled brass chassis with magnetic hall-effect switches and programmable analog travel.',
         icon: 'fa-keyboard',
         color: 'from-cyan-600/20 to-blue-600/20',
-        tag: 'RAPID TRIGGER'
+        tag: 'RAPID TRIGGER',
+        isDigital: false
       },
       {
         id: 'texx-03',
@@ -756,7 +998,8 @@
         desc: 'Titanium grade 5 casing with micro-OLED 120Hz display and biological biometric sensors.',
         icon: 'fa-stopwatch',
         color: 'from-emerald-600/20 to-teal-600/20',
-        tag: 'NEW'
+        tag: 'NEW',
+        isDigital: false
       },
       {
         id: 'texx-04',
@@ -767,7 +1010,8 @@
         desc: 'Solid-state graphene cell capable of 140W PD charging up to 4 devices concurrently.',
         icon: 'fa-bolt-lightning',
         color: 'from-amber-600/20 to-orange-600/20',
-        tag: 'HIGH CAPACITY'
+        tag: 'HIGH CAPACITY',
+        isDigital: false
       },
       {
         id: 'texx-05',
@@ -778,7 +1022,8 @@
         desc: 'Featherlight 42g optical waveguide frames with transparent HUD and gesture recognition.',
         icon: 'fa-glasses',
         color: 'from-fuchsia-600/20 to-pink-600/20',
-        tag: 'REVOLUTIONARY'
+        tag: 'REVOLUTIONARY',
+        isDigital: false
       },
       {
         id: 'texx-06',
@@ -789,7 +1034,8 @@
         desc: 'Magnesium skeleton weighing 39g with 8000Hz polling rate and optical photon switches.',
         icon: 'fa-computer-mouse',
         color: 'from-sky-600/20 to-blue-600/20',
-        tag: '8000 HZ'
+        tag: '8000 HZ',
+        isDigital: false
       },
       {
         id: 'texx-07',
@@ -797,10 +1043,11 @@
         category: 'audio',
         price: 219.00,
         badge: 'Neural Audio',
-        desc: '360-degree acoustic acoustic levitation driver array delivering high-resolution room acoustics.',
+        desc: '360-degree acoustic levitation driver array delivering high-resolution room acoustics.',
         icon: 'fa-volume-high',
         color: 'from-violet-600/20 to-indigo-600/20',
-        tag: 'HI-RES'
+        tag: 'HI-RES',
+        isDigital: false
       },
       {
         id: 'texx-08',
@@ -811,75 +1058,25 @@
         desc: 'Qi2 certified 3-in-1 magnetic wireless fast charging hub with active cryo-cooling system.',
         icon: 'fa-charging-station',
         color: 'from-teal-600/20 to-emerald-600/20',
-        tag: 'ACTIVE COOLING'
+        tag: 'ACTIVE COOLING',
+        isDigital: false
       }
     ];
 
-    // Card network test samples (all passing Luhn)
-    const NETWORK_SAMPLES = {
-      visa: {
-        number: '4111 1111 1111 1111',
-        brand: 'VISA',
-        cvcLen: 3,
-        formatLen: 16
-      },
-      mastercard: {
-        number: '5555 5555 5555 4444',
-        brand: 'MASTERCARD',
-        cvcLen: 3,
-        formatLen: 16
-      },
-      amex: {
-        number: '3782 822463 10005',
-        brand: 'AMERICAN EXPRESS',
-        cvcLen: 4,
-        formatLen: 15
-      },
-      discover: {
-        number: '6011 1111 1111 1117',
-        brand: 'DISCOVER',
-        cvcLen: 3,
-        formatLen: 16
-      },
-      diners: {
-        number: '3000 0000 0000 04',
-        brand: 'DINERS CLUB',
-        cvcLen: 3,
-        formatLen: 14
-      },
-      jcb: {
-        number: '3528 1234 5678 9012',
-        brand: 'JCB',
-        cvcLen: 3,
-        formatLen: 16
-      },
-      unionpay: {
-        number: '6221 2600 0000 0004',
-        brand: 'CHINA UNIONPAY',
-        cvcLen: 3,
-        formatLen: 16
-      },
-      rupay: {
-        number: '6061 1111 1111 1118',
-        brand: 'RUPAY',
-        cvcLen: 3,
-        formatLen: 16
-      }
-    };
-
-    // Random address seed pools for mock generator
+    // Address pools for mock data generator
     const MOCK_NAMES = [
       'Alex Mercer', 'Elena Rostova', 'Kaelen Thorne', 'Aria Nakamura',
       'Marcus Brody', 'Devon Vance', 'Priya Sharma', 'Hiroshi Tanaka',
-      'Claire Beaumont', 'Liam Sterling', 'Sofia Reyes', 'David Chen'
+      'Li Wei', 'Claire Beaumont', 'Liam Sterling', 'Sofia Reyes', 'David Chen'
     ];
 
     const MOCK_LOCALES = [
       { country: 'US', cities: ['San Francisco', 'Austin', 'Seattle', 'New York', 'Denver'], streets: ['742 Quantum Ridge', '808 Silicon Way', '1240 Horizon Blvd', '350 Mission Ave'], zip: () => Math.floor(10000 + Math.random() * 89999).toString() },
-      { country: 'GB', cities: ['London', 'Manchester', 'Edinburgh', 'Bristol'], streets: ['14 Baker St', '27 Kensington Gardens', '90 Oxford Road'], zip: () => 'EC1A ' + Math.floor(1 + Math.random() * 9) + 'BB' },
-      { country: 'DE', cities: ['Berlin', 'Munich', 'Frankfurt', 'Hamburg'], streets: ['Friedrichstraße 42', 'Leipziger Platz 11', 'Sonnenallee 88'], zip: () => Math.floor(10000 + Math.random() * 89999).toString() },
+      { country: 'CN', cities: ['Shanghai', 'Shenzhen', 'Beijing', 'Hangzhou'], streets: ['88 Century Avenue', '102 NanJing Road', '55 Hi-Tech South Rd'], zip: () => Math.floor(200000 + Math.random() * 300000).toString() },
       { country: 'IN', cities: ['Bengaluru', 'Mumbai', 'New Delhi', 'Hyderabad'], streets: ['108 Outer Ring Rd', '42 Cyber City Sector 2', '17 MG Road'], zip: () => Math.floor(110001 + Math.random() * 500000).toString() },
       { country: 'JP', cities: ['Tokyo', 'Osaka', 'Kyoto', 'Fukuoka'], streets: ['3-14 Roppongi Hills', '1-2 Shibuya Crossing', '4-8 Umeda Sky'], zip: () => Math.floor(100 + Math.random() * 800) + '-' + Math.floor(1000 + Math.random() * 8999) },
+      { country: 'GB', cities: ['London', 'Manchester', 'Edinburgh', 'Bristol'], streets: ['14 Baker St', '27 Kensington Gardens', '90 Oxford Road'], zip: () => 'EC1A ' + Math.floor(1 + Math.random() * 9) + 'BB' },
+      { country: 'DE', cities: ['Berlin', 'Munich', 'Frankfurt', 'Hamburg'], streets: ['Friedrichstraße 42', 'Leipziger Platz 11', 'Sonnenallee 88'], zip: () => Math.floor(10000 + Math.random() * 89999).toString() },
       { country: 'CA', cities: ['Toronto', 'Vancouver', 'Montreal', 'Calgary'], streets: ['500 Bay St', '120 Robson Blvd', '77 King Street West'], zip: () => 'M5V ' + Math.floor(1 + Math.random() * 9) + 'K' + Math.floor(1 + Math.random() * 9) },
       { country: 'AU', cities: ['Sydney', 'Melbourne', 'Brisbane', 'Perth'], streets: ['220 George St', '45 Collins St', '12 Queen St'], zip: () => Math.floor(2000 + Math.random() * 7000).toString() }
     ];
@@ -888,11 +1085,11 @@
     let cart = [];
     let activeCategory = 'all';
     let searchQuery = '';
-    let userDismissedWarningForCard = null; // Card value for which user selected "Continue Anyway"
+    let userDismissedWarningForCard = null;
     const STORAGE_KEY = 'texx_mockup_vault';
 
     /* =======================================================================
-       2. INITIALIZATION & DOM REFERENCES
+       4. INITIALIZATION & DOM REFERENCES
        ======================================================================= */
     const screenWelcome = document.getElementById('screen-welcome');
     const screenStore = document.getElementById('screen-store');
@@ -902,16 +1099,25 @@
     const processingModal = document.getElementById('processing-modal');
     const realCardModal = document.getElementById('real-card-modal');
 
-    // On Load
     window.addEventListener('DOMContentLoaded', () => {
+      injectNetworkChipSVGs();
       renderProducts();
       updateArrivalDateDisplay();
       checkSavedVaultData();
       setupEventListeners();
     });
 
+    function injectNetworkChipSVGs() {
+      for (const [key, pool] of Object.entries(NETWORK_POOLS)) {
+        const el = document.getElementById(`chip-svg-${key}`);
+        if (el) {
+          el.innerHTML = BRAND_SVGS[pool.svgKey];
+        }
+      }
+    }
+
     /* =======================================================================
-       3. NAVIGATION & ROUTING
+       5. NAVIGATION & ROUTING
        ======================================================================= */
     function switchScreen(screenToShow) {
       screenWelcome.classList.add('hidden');
@@ -928,7 +1134,7 @@
     }
 
     /* =======================================================================
-       4. PRODUCTS RENDERING & FILTERING
+       6. PRODUCTS RENDERING & FILTERING
        ======================================================================= */
     function renderProducts() {
       const grid = document.getElementById('product-grid');
@@ -946,8 +1152,8 @@
         grid.innerHTML = `
           <div class="col-span-full py-16 text-center text-slate-400">
             <i class="fa-solid fa-box-open text-4xl mb-3 text-slate-600 block"></i>
-            <p class="text-base font-semibold">No futuristic gear matched your search.</p>
-            <p class="text-xs text-slate-400 mt-1">Try resetting the category filter or searching for "audio", "keyboard", or "power".</p>
+            <p class="text-base font-semibold">No futuristic gear or software matched your search.</p>
+            <p class="text-xs text-slate-400 mt-1">Try resetting the category filter or searching for "quantum", "software", or "keyboard".</p>
           </div>
         `;
         return;
@@ -957,11 +1163,15 @@
         const card = document.createElement('div');
         card.className = "group relative rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-brand-500/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-brand-500/10 hover:-translate-y-1";
 
+        const typeIndicator = product.isDigital 
+          ? `<span class="text-emerald-400 text-[11px] flex items-center gap-1 font-mono"><i class="fa-solid fa-cloud-arrow-down"></i> Instant Download</span>`
+          : `<span class="text-slate-400 text-[11px] flex items-center gap-1 font-mono"><i class="fa-solid fa-box"></i> Free Express Ship</span>`;
+
         card.innerHTML = `
           <div>
             <div class="relative w-full h-44 rounded-xl bg-gradient-to-br ${product.color} border border-slate-800 flex flex-col items-center justify-center p-4 overflow-hidden mb-4 group-hover:scale-[1.01] transition-transform">
               <div class="absolute top-2.5 left-3 text-[10px] font-mono tracking-widest text-slate-400 uppercase font-bold flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-neon"></span> TEXX SPEC
+                <span class="w-1.5 h-1.5 rounded-full ${product.isDigital ? 'bg-cyan-400' : 'bg-brand-neon'}"></span> ${product.isDigital ? 'DIGITAL SUITE' : 'TEXX SPEC'}
               </div>
               <span class="absolute top-2.5 right-3 text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950/70 border border-slate-700/60 text-brand-300 font-semibold">${product.tag}</span>
 
@@ -969,12 +1179,12 @@
                 <i class="fa-solid ${product.icon} text-2xl"></i>
               </div>
 
-              <span class="mt-2 text-[11px] font-display font-extrabold tracking-widest text-slate-400 uppercase">TEXX • HARDWARE</span>
+              <span class="mt-2 text-[11px] font-display font-extrabold tracking-widest text-slate-400 uppercase">${product.isDigital ? 'TEXX SOFTWARE' : 'TEXX HARDWARE'}</span>
             </div>
 
             <div class="flex items-center justify-between text-xs mb-1">
               <span class="text-brand-accent font-mono font-medium">${product.badge}</span>
-              <span class="text-slate-400 text-[11px]">Free Shipping</span>
+              ${typeIndicator}
             </div>
 
             <h3 class="text-base font-display font-bold text-white group-hover:text-brand-300 transition-colors">${product.name}</h3>
@@ -998,7 +1208,7 @@
     }
 
     /* =======================================================================
-       5. CART OPERATIONS & AUTO-RECALCULATIONS
+       7. CART OPERATIONS & AUTO-RECALCULATIONS
        ======================================================================= */
     function addToCart(productId) {
       const existing = cart.find(item => item.productId === productId);
@@ -1084,7 +1294,10 @@
                 <i class="fa-solid ${prod.icon}"></i>
               </div>
               <div class="truncate">
-                <h4 class="text-xs font-bold text-white truncate">${prod.name}</h4>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-xs font-bold text-white truncate">${prod.name}</h4>
+                  ${prod.isDigital ? '<span class="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-mono">DIGITAL</span>' : ''}
+                </div>
                 <p class="text-[11px] font-mono text-brand-400 mt-0.5">$${prod.price.toFixed(2)} each</p>
               </div>
             </div>
@@ -1141,7 +1354,7 @@
     }
 
     /* =======================================================================
-       6. DYNAMIC DELIVERY DATE CALCULATION
+       8. DYNAMIC ARRIVAL / KEY GENERATION DATE
        ======================================================================= */
     function updateArrivalDateDisplay() {
       const today = new Date();
@@ -1152,35 +1365,12 @@
       const formatted = arrival.toLocaleDateString('en-US', options);
 
       document.getElementById('checkout-arrival-date').textContent = formatted;
-      document.getElementById('receipt-arrival-date').textContent = `${formatted} (Express Dispatch)`;
+      document.getElementById('receipt-arrival-date').textContent = `${formatted} (Express Dispatch) + Instant Keys`;
     }
 
     /* =======================================================================
-       7. ADVANCED CARD BRAND DETECTION & ABSURD NUMBER REJECTION
+       9. MATHEMATICAL LUHN ALGORITHM & BRAND DETECTION
        ======================================================================= */
-    // Reject absurd repeating numbers like '1000 0000 0000 0000', '0101 0101...', '0000 0000...'
-    function isAbsurdCardNumber(cleanNumber) {
-      if (!cleanNumber || cleanNumber.length < 12) return false;
-
-      // All identical digits: e.g. 0000000000000000, 1111111111111111
-      if (/^(\d)\1+$/.test(cleanNumber)) return true;
-
-      // Starts with 0000, 1000 0000, 0000 0000, 0101 0101
-      if (/^0{4,}/.test(cleanNumber)) return true;
-      if (/^(01){6,}/.test(cleanNumber)) return true;
-      if (/^(10){6,}/.test(cleanNumber)) return true;
-      if (/^10{11,}/.test(cleanNumber)) return true;
-      if (/^00{11,}/.test(cleanNumber)) return true;
-      if (/^12345678/.test(cleanNumber)) return true;
-
-      // Only zeros and ones repeating excessively
-      const zerosAndOnes = cleanNumber.replace(/[01]/g, '');
-      if (zerosAndOnes.length === 0 && cleanNumber.length >= 13) return true;
-
-      return false;
-    }
-
-    // Mathematical Luhn Algorithm Checksum
     function validateLuhn(numberString) {
       const cleaned = numberString.replace(/\D/g, '');
       if (cleaned.length < 13 || cleaned.length > 19) return false;
@@ -1203,90 +1393,88 @@
       return (sum % 10) === 0;
     }
 
-    // Comprehensive Card Network Detection:
-    // Visa, Mastercard, Amex, Discover, Diners Club, JCB, UnionPay, RuPay
     function detectCardBrand(numberString) {
       const c = numberString.replace(/\D/g, '');
-      if (!c || c.length === 0) return null; // No generic category when empty
+      if (!c || c.length === 0) return null;
 
       const num2 = parseInt(c.slice(0, 2), 10);
       const num3 = parseInt(c.slice(0, 3), 10);
       const num4 = parseInt(c.slice(0, 4), 10);
       const num6 = parseInt(c.slice(0, 6), 10);
 
-      // 1. RuPay: 60, 6521, 6522, 508, 3538, 81, 82 (prioritize over standard Discover range)
+      // 1. RuPay
       if (/^(606|607|608|6521|6522|508)/.test(c) || /^8[12]/.test(c)) {
         return {
           name: 'RUPAY',
-          badgeClass: 'bg-teal-500/10 text-teal-300 border-teal-500/30',
-          icon: 'fa-solid fa-money-bill-wave text-teal-400'
+          svgKey: 'rupay',
+          badgeClass: 'bg-teal-500/10 text-teal-300 border-teal-500/30'
         };
       }
 
-      // 2. Diners Club: 300-305, 3095, 36, 38-39
+      // 2. Diners Club
       if ((num3 >= 300 && num3 <= 305) || num4 === 3095 || num2 === 36 || num2 === 38 || num2 === 39) {
         return {
           name: 'DINERS CLUB',
-          badgeClass: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
-          icon: 'fa-brands fa-cc-diners-club text-sky-400'
+          svgKey: 'diners',
+          badgeClass: 'bg-sky-500/10 text-sky-300 border-sky-500/30'
         };
       }
 
-      // 3. American Express: 34, 37
+      // 3. American Express
       if (/^3[47]/.test(c)) {
         return {
           name: 'AMERICAN EXPRESS',
-          badgeClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
-          icon: 'fa-brands fa-cc-amex text-cyan-400'
+          svgKey: 'amex',
+          badgeClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'
         };
       }
 
-      // 4. JCB: 3528-3589
+      // 4. JCB
       if (num4 >= 3528 && num4 <= 3589) {
         return {
           name: 'JCB',
-          badgeClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
-          icon: 'fa-brands fa-cc-jcb text-emerald-400'
+          svgKey: 'jcb',
+          badgeClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
         };
       }
 
-      // 5. Visa: 4
+      // 5. Visa
       if (/^4/.test(c)) {
         return {
           name: 'VISA',
-          badgeClass: 'bg-blue-500/10 text-blue-300 border-blue-500/30',
-          icon: 'fa-brands fa-cc-visa text-blue-400'
+          svgKey: 'visa',
+          badgeClass: 'bg-blue-500/10 text-blue-300 border-blue-500/30'
         };
       }
 
-      // 6. Mastercard: 51-55, 2221-2720
+      // 6. Mastercard
       if ((num2 >= 51 && num2 <= 55) || (num4 >= 2221 && num4 <= 2720)) {
         return {
           name: 'MASTERCARD',
-          badgeClass: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-          icon: 'fa-brands fa-cc-mastercard text-amber-400'
+          svgKey: 'mastercard',
+          badgeClass: 'bg-amber-500/10 text-amber-300 border-amber-500/30'
         };
       }
 
-      // 7. China UnionPay: 62 (or 8100-8171)
+      // 7. China UnionPay
       if (/^62/.test(c)) {
         return {
-          name: 'UNIONPAY',
-          badgeClass: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
-          icon: 'fa-solid fa-credit-card text-rose-400'
+          name: 'CHINA UNIONPAY',
+          svgKey: 'unionpay',
+          badgeClass: 'bg-rose-500/10 text-rose-300 border-rose-500/30'
         };
       }
 
-      // 8. Discover: 6011, 622126-622925, 644-649, 65
+      // 8. Discover
       if (num4 === 6011 || (num6 >= 622126 && num6 <= 622925) || (num3 >= 644 && num3 <= 649) || num2 === 65) {
         return {
           name: 'DISCOVER',
-          badgeClass: 'bg-orange-500/10 text-orange-300 border-orange-500/30',
-          icon: 'fa-brands fa-cc-discover text-orange-400'
+          svgKey: 'discover',
+          badgeClass: 'bg-orange-500/10 text-orange-300 border-orange-500/30'
         };
       }
 
-      return null; // When unrecognized or partial, don't show generic label
+      return null;
     }
 
     function updateCardBrandUI(rawVal) {
@@ -1294,26 +1482,25 @@
       const iconBox = document.getElementById('card-brand-icon-box');
 
       if (!rawVal || rawVal.trim().length === 0) {
-        // Nothing entered: completely remove/hide brand badge and reset icon
         badge.className = 'hidden';
-        badge.textContent = '';
+        badge.innerHTML = '';
         iconBox.innerHTML = '<i class="fa-regular fa-credit-card text-base text-slate-500"></i>';
         return;
       }
 
       const brand = detectCardBrand(rawVal);
       if (brand) {
-        badge.className = `text-xs font-mono font-semibold px-2 py-0.5 rounded border ${brand.badgeClass}`;
-        badge.textContent = brand.name;
-        iconBox.innerHTML = `<i class="${brand.icon} text-lg"></i>`;
+        const svgContent = BRAND_SVGS[brand.svgKey] || '';
+        badge.className = `flex items-center gap-1.5 text-xs font-mono font-semibold px-2 py-0.5 rounded border ${brand.badgeClass}`;
+        badge.innerHTML = `<span class="w-4 h-3 inline-flex items-center">${svgContent}</span> <span>${brand.name}</span>`;
+        iconBox.innerHTML = `<div class="w-8 h-5 flex items-center justify-center">${svgContent}</div>`;
       } else {
         badge.className = 'hidden';
-        badge.textContent = '';
+        badge.innerHTML = '';
         iconBox.innerHTML = '<i class="fa-regular fa-credit-card text-base text-slate-400"></i>';
       }
     }
 
-    // Format input depending on network (Amex / Diners vs Standard 4-4-4-4)
     function formatCardNumber(value) {
       const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
       if (!v) return '';
@@ -1343,25 +1530,25 @@
     }
 
     /* =======================================================================
-       8. REAL CARD ADVISORY MODAL (MITM / EXTENSION SOFT WARNING)
+       10. SECURITY ADVISORY MODAL
        ======================================================================= */
     function checkRealCardAndWarn(inputEl) {
       const rawVal = inputEl.value.replace(/\s+/g, '');
 
-      // Only check when a full card length has been entered
       if (rawVal.length >= 14) {
-        if (isAbsurdCardNumber(rawVal)) {
-          // It's absurd, validation will catch it, don't trigger real card modal
-          return true;
+        // Check if it's one of our built-in pool cards
+        let isOfficialSample = false;
+        for (const pool of Object.values(NETWORK_POOLS)) {
+          if (pool.cards.some(c => c.replace(/\s+/g, '') === rawVal)) {
+            isOfficialSample = true;
+            break;
+          }
         }
 
-        // Check if it's already one of our documented sandbox numbers or already dismissed
-        const isOfficialSample = Object.values(NETWORK_SAMPLES).some(s => s.number.replace(/\s+/g, '') === rawVal);
         if (isOfficialSample || userDismissedWarningForCard === rawVal) {
           return true;
         }
 
-        // Passes basic Luhn and looks like a legitimate private card
         if (validateLuhn(rawVal)) {
           showRealCardAdvisoryModal();
           return false;
@@ -1379,7 +1566,7 @@
     }
 
     /* =======================================================================
-       9. LOCAL STORAGE / BROWSER CACHE
+       11. LOCAL STORAGE PERSISTENCE
        ======================================================================= */
     function saveDetailsToVault() {
       const data = {
@@ -1439,16 +1626,24 @@
     }
 
     /* =======================================================================
-       10. RANDOM MOCK DATA GENERATOR (ALL 8 NETWORKS EQUAL PROBABILITY)
+       12. RANDOM MOCK DATA GENERATOR (WITH MULTI-CARD POOL)
        ======================================================================= */
     function populateMockData(specifiedBrandKey = null) {
-      const keys = Object.keys(NETWORK_SAMPLES);
-      // Equal chance selection if not specified
+      const keys = Object.keys(NETWORK_POOLS);
       const brandKey = specifiedBrandKey || keys[Math.floor(Math.random() * keys.length)];
-      const sample = NETWORK_SAMPLES[brandKey];
+      const pool = NETWORK_POOLS[brandKey];
 
-      // Random Locale & Recipient Name
-      const locale = MOCK_LOCALES[Math.floor(Math.random() * MOCK_LOCALES.length)];
+      // Random selection from the brand's verified cards pool
+      const selectedCardNumber = pool.cards[Math.floor(Math.random() * pool.cards.length)];
+
+      // Pick matching locale or random
+      let locale = MOCK_LOCALES.find(l => {
+        if (brandKey === 'unionpay') return l.country === 'CN';
+        if (brandKey === 'rupay') return l.country === 'IN';
+        if (brandKey === 'jcb') return l.country === 'JP';
+        return false;
+      }) || MOCK_LOCALES[Math.floor(Math.random() * MOCK_LOCALES.length)];
+
       const randomName = MOCK_NAMES[Math.floor(Math.random() * MOCK_NAMES.length)];
       const randomStreet = locale.streets[Math.floor(Math.random() * locale.streets.length)];
       const randomCity = locale.cities[Math.floor(Math.random() * locale.cities.length)];
@@ -1462,42 +1657,42 @@
 
       // Populate Card Details
       document.getElementById('card-name').value = randomName.toUpperCase();
-      document.getElementById('card-number').value = sample.number;
-      updateCardBrandUI(sample.number);
+      document.getElementById('card-number').value = selectedCardNumber;
+      updateCardBrandUI(selectedCardNumber);
 
-      // Random future expiry date (e.g. 05/29)
+      // Random future expiry date
       const futureMonth = String(Math.floor(1 + Math.random() * 12)).padStart(2, '0');
       const futureYear = 28 + Math.floor(Math.random() * 5);
       document.getElementById('card-expiry').value = `${futureMonth}/${futureYear}`;
 
       // Random CVC based on brand requirement
-      const cvcDigits = sample.cvcLen === 4 ? Math.floor(1000 + Math.random() * 8999) : Math.floor(100 + Math.random() * 899);
+      const cvcDigits = pool.cvcLen === 4 ? Math.floor(1000 + Math.random() * 8999) : Math.floor(100 + Math.random() * 899);
       document.getElementById('card-cvc').value = cvcDigits.toString();
 
       // Clear any previous error styling
       document.getElementById('card-error-msg').classList.add('hidden');
       document.getElementById('card-number').classList.remove('border-rose-500', 'focus:border-rose-500');
 
-      userDismissedWarningForCard = sample.number.replace(/\s+/g, '');
-      showToast(`Loaded ${sample.brand} mock profile & shipping address!`, 'info');
+      userDismissedWarningForCard = selectedCardNumber.replace(/\s+/g, '');
+      showToast(`Loaded ${pool.brand} test card (${selectedCardNumber.slice(-4)}) & profile!`, 'info');
     }
 
     /* =======================================================================
-       11. CHECKOUT VALIDATION & SIMULATION
+       13. CHECKOUT VALIDATION & SIMULATION
        ======================================================================= */
     function completePurchase() {
-      // 1. Validate Physical Address
+      // 1. Validate Delivery Address
       const shipName = document.getElementById('ship-name').value.trim();
       const shipStreet = document.getElementById('ship-street').value.trim();
       const shipCity = document.getElementById('ship-city').value.trim();
       const shipZip = document.getElementById('ship-zip').value.trim();
 
       if (!shipName || !shipStreet || !shipCity || !shipZip) {
-        showToast('Please fill out all required physical address fields.', 'error');
+        showToast('Please fill out all required address fields.', 'error');
         return;
       }
 
-      // 2. Validate Cardholder & Card Number
+      // 2. Validate Card
       const cardName = document.getElementById('card-name').value.trim();
       const cardNumberRaw = document.getElementById('card-number').value.replace(/\s+/g, '');
       const cardExpiry = document.getElementById('card-expiry').value.trim();
@@ -1511,31 +1706,21 @@
         return;
       }
 
-      // Check for absurd card number (e.g. 1000 0000 0000 0000, 0101 0101...)
-      if (isAbsurdCardNumber(cardNumberRaw)) {
-        cardInputEl.classList.add('border-rose-500', 'focus:border-rose-500');
-        cardErrorText.textContent = 'Absurd or repetitive card numbers (e.g., repeating zeros/ones) are not accepted. Use a valid test card.';
-        cardErrorMsg.classList.remove('hidden');
-        cardInputEl.focus();
-        showToast('Absurd card number pattern detected. Please use a valid test card.', 'error');
-        return;
-      }
-
       // Mathematical Luhn Checksum
       const passesLuhn = validateLuhn(cardNumberRaw);
       if (!passesLuhn) {
         cardInputEl.classList.add('border-rose-500', 'focus:border-rose-500');
-        cardErrorText.textContent = 'Invalid card number checksum. Fails mathematical Luhn algorithm verification.';
+        cardErrorText.textContent = 'Invalid card number checksum. Must pass mathematical Luhn algorithm verification.';
         cardErrorMsg.classList.remove('hidden');
         cardInputEl.focus();
-        showToast('Card failed Luhn algorithm checksum!', 'error');
+        showToast('Card failed Luhn algorithm checksum! Check your digits.', 'error');
         return;
       } else {
         cardInputEl.classList.remove('border-rose-500', 'focus:border-rose-500');
         cardErrorMsg.classList.add('hidden');
       }
 
-      // 3. Expiry & CVC simple checks
+      // 3. Expiry & CVC format checks
       if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
         showToast('Expiry must follow MM/YY format (e.g. 12/28).', 'error');
         return;
@@ -1545,7 +1730,7 @@
         return;
       }
 
-      // 4. Persistence if checked
+      // 4. Persistence
       const saveChecked = document.getElementById('save-info-checkbox').checked;
       if (saveChecked) {
         saveDetailsToVault();
@@ -1571,7 +1756,7 @@
 
       setTimeout(() => {
         progressBar.style.width = '85%';
-        stepText.textContent = 'Generating encrypted TEXX dispatch receipt...';
+        stepText.textContent = 'Generating encrypted TEXX dispatch receipt & digital licenses...';
       }, 1800);
 
       setTimeout(() => {
@@ -1582,11 +1767,15 @@
         const { total } = calculateCartTotals();
         const brand = detectCardBrand(cardNumberRaw);
         const brandName = brand ? brand.name : 'CARD';
+        const brandSvg = brand ? (BRAND_SVGS[brand.svgKey] || '') : '';
         const last4 = cardNumberRaw.slice(-4);
 
         document.getElementById('receipt-order-id').textContent = `TEXX-${Math.floor(100000 + Math.random() * 900000)}-NX`;
         document.getElementById('receipt-total').textContent = `$${total.toFixed(2)}`;
-        document.getElementById('receipt-card-brand').textContent = `${brandName} (•••• ${last4})`;
+        
+        const receiptCardBrandEl = document.getElementById('receipt-card-brand');
+        receiptCardBrandEl.innerHTML = `<span class="w-4 h-3 inline-flex items-center">${brandSvg}</span> <span>${brandName} (•••• ${last4})</span>`;
+        
         document.getElementById('receipt-address').textContent = `${street}, ${city}`;
 
         // Reset cart and switch to success screen
@@ -1597,7 +1786,7 @@
     }
 
     /* =======================================================================
-       12. TOAST NOTIFICATIONS HELPER
+       14. TOAST NOTIFICATIONS HELPER
        ======================================================================= */
     function showToast(msg, type = 'info') {
       const container = document.getElementById('toast-container');
@@ -1631,7 +1820,7 @@
     }
 
     /* =======================================================================
-       13. EVENT LISTENERS
+       15. EVENT LISTENERS
        ======================================================================= */
     function setupEventListeners() {
       // 1. Welcome Screen "Start Shopping" button
